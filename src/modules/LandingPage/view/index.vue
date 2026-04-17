@@ -4,6 +4,7 @@ import Header from '../components/Header.vue';
 import Secao1 from '../components/Secao1.vue';
 import Secao2 from '../components/Secao2.vue';
 import Secao3 from '../components/Secao3.vue';
+import Secao5 from '../components/Secao5.vue';
 </script>
 
 <template>
@@ -15,5 +16,7 @@ import Secao3 from '../components/Secao3.vue';
         <Secao2 />
 
         <Secao3 />
+
+        <Secao5 />
     </div>
 </template>
