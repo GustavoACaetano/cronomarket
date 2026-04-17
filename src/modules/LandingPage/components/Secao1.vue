@@ -3,7 +3,7 @@
         <div class="flex flex-col items-center gap-2">
             <h1 class="text-7xl">Cronomarket</h1>
             <h1 class="text-6xl text-transparent bg-clip-text bg-linear-to-r from-black via-gray-500 to-gray-400">onde o futuro vira mercado</h1>
-            <button class="mt-4 bg-black text-white px-8 py-3 rounded-full text-base font-medium hover:bg-gray-800 transition-colors">Begin trial free</button>
+            <button class="mt-4 bg-black text-white px-8 py-3 rounded-full text-base font-medium hover:bg-gray-800 transition-colors">Jogar agora!</button>
         </div>
     </section>
 </template>

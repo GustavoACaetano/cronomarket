@@ -1,9 +1,10 @@
 <script lang="ts" setup>
-import { ChevronDown, Star } from 'lucide-vue-next'
+// import { ChevronDown, Star } from 'lucide-vue-next'
 import Header from '../components/Header.vue';
 import Secao1 from '../components/Secao1.vue';
 import Secao2 from '../components/Secao2.vue';
 import Secao3 from '../components/Secao3.vue';
+import Secao4 from '../components/Secao4.vue';
 import Secao5 from '../components/Secao5.vue';
 </script>
 
@@ -16,6 +17,8 @@ import Secao5 from '../components/Secao5.vue';
         <Secao2 />
 
         <Secao3 />
+
+        <Secao4 />
 
         <Secao5 />
     </div>

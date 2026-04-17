@@ -22,11 +22,11 @@
             class="flex items-center gap-4 animate-fade-in-up"
             style="opacity: 0; animation-delay: 0.3s"
         >
-            <a href="#" class="text-sm text-gray-700 hover:text-black transition-colors">Login</a>
+            <a href="#" class="text-sm text-gray-700 hover:text-black transition-colors">Entrar</a>
             <button
                 class="bg-black text-white px-5 py-2.5 rounded-full text-sm font-medium hover:bg-gray-800 transition-colors"
             >
-                Get started free
+                Inscrever-se
             </button>
         </div>
     </nav>
