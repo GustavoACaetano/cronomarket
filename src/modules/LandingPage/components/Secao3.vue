@@ -25,7 +25,7 @@
                 class="mt-8 bg-black text-white px-8 py-3 rounded-full text-base font-medium hover:bg-gray-800 transition-colors animate-fade-in-up"
                 style="opacity: 0; animation-delay: 1.4s"
             >
-                Venha fazer parte dessa história
+                Venha fazer parte dessa história!
             </button>
         </div>
     </section>
