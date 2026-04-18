@@ -6,7 +6,7 @@
             </h2>
 
             <img
-                src="/img1.png"
+                src="/sobrenos.png"
                 alt="Equipe Cronomarket"
                 class="w-full max-w-2xl mx-auto rounded-3xl object-cover border border-gray-200 animate-fade-in-up"
                 style="opacity: 0; animation-delay: 1.2s"
