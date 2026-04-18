@@ -1,5 +1,5 @@
 <template>
-    <section class="px-6 pb-28 max-w-7xl mx-auto text-center">
+    <section class="px-6 max-w-7xl mx-auto text-center">
         <div class="max-w-3xl mx-auto">
             <h2 class="text-4xl md:text-5xl leading-tight tracking-tight mb-10 animate-fade-in-up" style="opacity: 0; animation-delay: 1.1s">
                 Sobre nós

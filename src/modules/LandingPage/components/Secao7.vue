@@ -66,7 +66,7 @@ onBeforeUnmount(() => {
 <template>
     <section
         ref="sectionRef"
-        class="mx-auto pt-30 flex max-w-7xl flex-col items-center justify-between px-5 transition-all duration-700 ease-out"
+        class="mx-auto flex max-w-7xl flex-col items-center justify-between px-5 transition-all duration-700 ease-out"
         :class="isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'"
     >
         <div class="mb-10 gap-y-6 transition-all duration-700 delay-150" :class="isVisible ? 'translate-y-0 opacity-100' : 'translate-y-5 opacity-0'">
@@ -89,7 +89,7 @@ onBeforeUnmount(() => {
                     <path d="M12 7H16.5C17.33 7 18 6.33 18 5.5C18 4.67 17.33 4 16.5 4C14.5 4 12 7 12 7Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
             </button>
-            <p class="text-center text-xs text-gray-500">sem taxa</p>
+            <p class="text-center text-xs text-gray-500 mt-2">sem taxa</p>
         </div>
     </section>
 </template>

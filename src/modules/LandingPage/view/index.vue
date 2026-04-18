@@ -8,11 +8,13 @@ import Secao4 from '../components/Secao4.vue';
 import Secao5 from '../components/Secao5.vue';
 import Secao6 from '../components/Secao6.vue';
 import Secao7 from '../components/Secao7.vue';
+import Secao8 from '../components/Secao8.vue';
 </script>
 
 <template>
-    <div class="min-h-screen bg-white text-black">
-        <Header />
+    
+    <Header />
+    <div class="min-h-screen bg-white text-black flex flex-col gap-y-26 items-center">
         
         <Secao1 />
 
@@ -27,5 +29,7 @@ import Secao7 from '../components/Secao7.vue';
         <Secao6 />
 
         <Secao7 />
+
+        <Secao8 />
     </div>
 </template>

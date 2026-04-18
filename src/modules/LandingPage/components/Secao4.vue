@@ -4,19 +4,38 @@ import { ref } from 'vue'
 
 const imagens = [
     '/carrossel1.png',
-    '/carrossel2.png'
+    '/carrossel2.png',
+    '/carrossel1.png',
+    '/carrossel1.png',
+    '/carrossel1.png'
 ]
+
 const imagensAlt = [
-    'Ryan Gosling',
-    'Raquel Neves'
+    'Escolher mercado',
+    'Analisar mercado',
+    'Fazer previsão',
+    'Comprar ações',
+    'Acompanhar resultado'
 ]
+
 const titulos = [
     "1. Escolha um mercado",
-    "2. Faça suas previsões"
+    "2. Analise as probabilidades",
+    "3. Faça sua previsão",
+    "4. Compre ações",
+    "5. Acompanhe e finalize"
 ]
+
 const textos = [
-    "Dentre as milhares de opções, encontre um mercado que você possui conhecimento ou interesse. Pode ser sobre esportes, política, entretenimento, ciência e muito mais!",
-    "Faça suas previsões escolhendo um dos lados do mercado. Você pode comprar ações de um resultado específico, como 'Time A vence' ou 'Evento X acontece'."
+    "Explore os mercados disponíveis e escolha um tema que você entende ou tem interesse. Pode ser esportes, política, tecnologia ou eventos do dia a dia.",
+
+    "Antes de apostar, observe as probabilidades e o comportamento do mercado. Veja o que outros usuários estão fazendo e identifique boas oportunidades.",
+
+    "Escolha o resultado que você acredita que vai acontecer. Cada mercado possui diferentes possibilidades, e você decide em qual delas confiar.",
+
+    "Invista comprando ações no resultado escolhido. Quanto mais cedo e estratégico você for, maior pode ser o seu retorno.",
+
+    "Acompanhe o andamento do mercado em tempo real. Ao final do evento, suas ações serão liquidadas com base no resultado final."
 ]
 
 const currentIndex = ref(0)
@@ -34,7 +53,7 @@ function voltarCarrossel() {
 </script>
 
 <template>
-    <section class="p-6 mx-auto max-w-7xl">
+    <section class="px-6 py-10 mx-auto max-w-7xl">
         <h2 class="text-4xl md:text-5xl leading-tight tracking-tight mb-15 text-center">
             Como operar no Cronomarket?
         </h2>
@@ -45,14 +64,14 @@ function voltarCarrossel() {
             </div>
 
             <transition :name="direction === 'right' ? 'slide-right' : 'slide-left'" mode="out-in">
-                <div :key="currentIndex" class="flex p-10 bg-gray-100 rounded gap-8 items-center">
+                <div :key="currentIndex" class="flex md:flex-row flex-col p-10 bg-gray-100 rounded gap-8 items-center h-8xl">
                     <img
                         :src="imagens[currentIndex]"
                         :alt="imagensAlt[currentIndex]"
-                        class="w-1/2 h-[300px] object-cover rounded-lg"
+                        class="md:w-1/2 md:h-75 object-cover rounded-lg"
                     />
 
-                    <div class="w-1/2">
+                    <div class="md:w-1/2">
                         <p class="mb-6 text-2xl font-semibold">
                             {{ titulos[currentIndex] }}
                         </p>
