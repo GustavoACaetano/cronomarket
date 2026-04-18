@@ -10,7 +10,7 @@ const cards = [
 	<section class="mx-auto flex flex-col items-center justify-between px-5 max-w-7xl animate-fade-in-up" style="opacity: 0; animation-delay: 0.5s">
         <div class="gap-y-6 mb-10">
             <h1 class="text-center text-5xl mb-18">
-                Ouça os depoimentos dos próprios usuários!
+                Ouça os depoimentos dos <br> próprios usuários!
             </h1>
         </div>
         <div class="grid grid-cols-1 gap-10 md:grid-cols-3 mb-25">
