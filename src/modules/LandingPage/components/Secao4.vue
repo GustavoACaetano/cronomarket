@@ -20,12 +20,15 @@ const textos = [
 ]
 
 const currentIndex = ref(0)
+const direction = ref('right')
 
 function avancarCarrossel() {
+    direction.value = 'right'
     currentIndex.value = (currentIndex.value + 1) % titulos.length
 }
 
 function voltarCarrossel() {
+    direction.value = 'left'
     currentIndex.value = (currentIndex.value - 1 + titulos.length) % titulos.length
 }
 </script>
@@ -41,23 +44,25 @@ function voltarCarrossel() {
                 <ChevronLeft @click="voltarCarrossel"/>
             </div>
 
-            <div class="flex p-10 bg-gray-100 rounded gap-8 items-center">
-                <img
-                    :src="imagens[currentIndex]"
-                    :alt="imagensAlt[currentIndex]"
-                    class="w-1/2 h-[300px] object-cover rounded-lg"
-                />
+            <transition :name="direction === 'right' ? 'slide-right' : 'slide-left'" mode="out-in">
+                <div :key="currentIndex" class="flex p-10 bg-gray-100 rounded gap-8 items-center">
+                    <img
+                        :src="imagens[currentIndex]"
+                        :alt="imagensAlt[currentIndex]"
+                        class="w-1/2 h-[300px] object-cover rounded-lg"
+                    />
 
-                <div class="w-1/2">
-                    <p class="mb-6 text-2xl font-semibold">
-                        {{ titulos[currentIndex] }}
-                    </p>
+                    <div class="w-1/2">
+                        <p class="mb-6 text-2xl font-semibold">
+                            {{ titulos[currentIndex] }}
+                        </p>
 
-                    <p class="text-gray-700 leading-relaxed">
-                        {{ textos[currentIndex] }}
-                    </p>
+                        <p class="text-gray-700 leading-relaxed">
+                            {{ textos[currentIndex] }}
+                        </p>
+                    </div>
                 </div>
-            </div>
+            </transition>
 
             <div class="cursor-pointer">
                 <ChevronRight @click="avancarCarrossel"/>
@@ -74,3 +79,35 @@ function voltarCarrossel() {
         </div>
     </section>
 </template>
+
+<style>
+.slide-right-enter-active,
+.slide-right-leave-active {
+  transition: all 0.4s ease;
+}
+
+.slide-right-enter-from {
+  opacity: 0;
+  transform: translateX(60px);
+}
+
+.slide-right-leave-to {
+  opacity: 0;
+  transform: translateX(-60px);
+}
+
+.slide-left-enter-active,
+.slide-left-leave-active {
+  transition: all 0.4s ease;
+}
+
+.slide-left-enter-from {
+  opacity: 0;
+  transform: translateX(-60px);
+}
+
+.slide-left-leave-to {
+  opacity: 0;
+  transform: translateX(60px);
+}
+</style>
