@@ -22,7 +22,7 @@ const cards = [
                     Ouça os depoimentos dos <br> próprios usuários!
                 </h1>
             </div>
-            <div class="grid grid-cols-1 gap-10 md:grid-cols-3 mb-25">
+            <div class="grid grid-cols-1 gap-10 md:grid-cols-3 justify-items-center mb-25">
                 <div v-for="(card, i) in cards" :key="i" class="border-white bg-neutral-300 border-2 rounded-2xl max-w-70 p-8 gap-2 flex flex-col justify-between">
                     <div class="flex flex-col items-center gap-2">
                         <div class="mx-auto w-30 h-30 overflow-hidden rounded-full border-gray-600">
