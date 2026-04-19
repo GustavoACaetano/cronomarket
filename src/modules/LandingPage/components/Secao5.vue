@@ -11,14 +11,11 @@ const cards = [
 </script>
 
 <template>
-	<section 
-        class="mx-auto flex flex-col items-center justify-between px-5 max-w-7xl animate-fade-in-up" 
-        style="opacity: 0; animation-delay: 0.5s"
-        ref="targetRef"
-    >
+	<section class="mx-auto flex flex-col items-center justify-between px-5 max-w-7xl">
         <div
             class="transition duration-700 ease-out"
             :class="isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'"
+            ref="targetRef"
         >
             <div class="gap-y-6 mb-10">
                 <h1 class="text-center text-5xl mb-18">

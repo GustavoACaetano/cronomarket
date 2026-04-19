@@ -7,9 +7,9 @@ const { targetRef, isVisible } = useInView({ threshold: 0.3 })
 <template>
     <section class="bg-gray-100 w-full flex items-center justify-center">
         <div 
-        class="mx-auto py-24 flex flex-col items-center justify-between px-5 max-w-7xl transition-all duration-700 ease-out" 
-        :class="isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'"
-        ref="targetRef"
+            class="mx-auto py-24 flex flex-col items-center justify-between px-5 max-w-7xl transition-all duration-700 ease-out" 
+            :class="isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'"
+            ref="targetRef"
         >
             <div class="gap-y-6 mb-10">
                 <h1 class="text-center text-5xl mb-18">
