@@ -18,14 +18,14 @@ const textos = [
 </script>
 
 <template>
-    <section class="bg-gray-100 w-full flex items-center justify-center">
+    <section id="por-que" class="bg-gray-100 w-full flex items-center justify-center">
         <div
             class="py-25 flex items-center flex-col md:flex-row md:justify-between px-5 md:max-w-7xl transition-all duration-700 ease-out"
             :class="isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'"
             ref="targetRef"
         >
             <div class="flex flex-col text-wrap md:w-xl gap-y-6 md:text-left text-center">
-                <h1 class="text-5xl">Por que operar com o Cronomarket?</h1>
+                <h2 class="text-5xl">Por que operar com o Cronomarket?</h2>
                 <p class="md:text-base text-sm text-left">
                     O melhor e mais confiável mercado de previsões do mundo!<br>
                     Entender o nosso diferencial é essencial para aproveitar ao máximo a experiência no Cronomarket. <br>

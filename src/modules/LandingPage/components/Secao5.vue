@@ -11,19 +11,19 @@ const cards = [
 </script>
 
 <template>
-	<section class="mx-auto flex flex-col items-center justify-between px-5 max-w-7xl">
+	<section id="depoimentos" class="mx-auto flex flex-col items-center justify-between px-5 max-w-7xl">
         <div
             class="transition duration-700 ease-out"
             :class="isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'"
             ref="targetRef"
         >
             <div class="gap-y-6 mb-10">
-                <h1 class="text-center text-5xl mb-18">
+                <h2 class="text-center text-5xl mb-18">
                     Ouça os depoimentos dos <br> próprios usuários!
-                </h1>
+                </h2>
             </div>
             <div class="grid grid-cols-1 gap-10 md:grid-cols-3 justify-items-center mb-25">
-                <div v-for="(card, i) in cards" :key="i" class="border-white bg-neutral-300 border-2 rounded-2xl max-w-70 p-8 gap-2 flex flex-col justify-between">
+                <div v-for="(card, i) in cards" :key="i" class="border-white bg-neutral-300 border-2 rounded-2xl w-70 p-8 gap-2 flex flex-col justify-between">
                     <div class="flex flex-col items-center gap-2">
                         <div class="mx-auto w-30 h-30 overflow-hidden rounded-full border-gray-600">
                             <img :src="card[0]" :alt="card[1]" class="h-full w-full object-cover">

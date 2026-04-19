@@ -5,15 +5,15 @@ const { targetRef, isVisible } = useInView({ threshold: 0.3 })
 </script>
 
 <template>
-    <section class="bg-gray-100 w-full flex items-center justify-center">
+    <section id="faq" class="bg-gray-100 w-full flex items-center justify-center">
         <div 
             class="flex items-center flex-col pb-24 md:w-7xl px-5 pt-10 transition-all duration-700 ease-out" 
             :class="isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'"
             ref="targetRef"
         >
-            <h1 class="text-5xl mb-18 text-center">
+            <h2 class="text-5xl mb-18 text-center">
                 Perguntas frequentes
-            </h1>            
+            </h2>            
 
             <div class="flex flex-col gap-y-5 w-full">
                 <details class="collapse collapse-arrow border border-base-300" name="my-accordion-det-1" >

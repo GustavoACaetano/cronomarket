@@ -36,6 +36,15 @@ const { targetRef, isVisible } = useInView({ threshold: 0.3 })
                         </div>
                     </div>
                 </div>
+
+                <div class="flex justify-center">
+                    <button
+                        class="mt-8 bg-black text-white px-8 py-3 rounded-full text-base font-medium hover:bg-gray-800 transition-colors animate-fade-in-up"
+                        style="opacity: 0; animation-delay: 1.4s"
+                    >
+                        Comece a acumular ganhos agora!
+                    </button>
+                </div>
             </div>
         </div>
     </section>

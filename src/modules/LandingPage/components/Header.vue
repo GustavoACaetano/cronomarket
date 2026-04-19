@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full bg-white text-black pb-24">
+    <div class="w-full bg-white text-black pb-12">
         <nav
             class="px-6 py-4 flex items-center justify-between max-w-7xl mx-auto animate-fade-in-up "
             style="opacity: 0; animation-delay: 0.1s"
@@ -13,14 +13,17 @@
                 class="hidden md:flex items-center gap-8 animate-fade-in-up"
                 style="opacity: 0; animation-delay: 0.2s"
             >
-                <a href="#" class="text-sm text-gray-700 hover:text-black transition-colors">Home</a>
-                <a href="#" class="text-sm text-gray-700 hover:text-black transition-colors">Produtos</a>
-                <a href="#" class="text-sm text-gray-700 hover:text-black transition-colors">Sobre nós</a>
-                <a href="#" class="text-sm text-gray-700 hover:text-black transition-colors">Learn Hub</a>
+                <a href="#home" class="text-sm text-gray-700 hover:text-black transition-colors">Home</a>
+                <a href="#por-que" class="text-sm text-gray-700 hover:text-black transition-colors">Por que?</a>
+                <a href="#sobre" class="text-sm text-gray-700 hover:text-black transition-colors">Sobre nós</a>
+                <a href="#como-operar" class="text-sm text-gray-700 hover:text-black transition-colors">Como operar?</a>
+                <a href="#depoimentos" class="text-sm text-gray-700 hover:text-black transition-colors">Depoimentos</a>
+                <a href="#resgate" class="text-sm text-gray-700 hover:text-black transition-colors">Resgate</a>
+                <a href="#faq" class="text-sm text-gray-700 hover:text-black transition-colors">FAQ</a>
             </div>
 
             <div
-                class="flex items-center gap-4 animate-fade-in-up"
+                class="flex items-center gap-2 animate-fade-in-up md:gap-4"
                 style="opacity: 0; animation-delay: 0.3s"
             >
                 <a href="#" class="text-sm text-gray-700 hover:text-black transition-colors">Entrar</a>

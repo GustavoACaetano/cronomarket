@@ -6,6 +6,7 @@ const { targetRef, isVisible } = useInView({ threshold: 0.3 })
 
 <template>
     <section 
+    id = "sobre"
     class="px-6 max-w-7xl mx-auto text-center"
     >
         <div class="max-w-6xl mx-auto">

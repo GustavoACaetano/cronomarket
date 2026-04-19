@@ -70,9 +70,9 @@ onBeforeUnmount(() => {
         :class="isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'"
     >
         <div class="mb-10 gap-y-6">
-            <h1 class="text-center mb-18 text-7xl font-extrabold text-transparent bg-clip-text bg-linear-to-r from-red-500 via-yellow-500 to-red-500 scale-y-125 -skew-y-6 scale-x-150 transform">
+            <h2 class="text-center mb-18 text-7xl font-extrabold text-transparent bg-clip-text bg-linear-to-r from-red-500 via-yellow-500 to-red-500 scale-y-125 -skew-y-6 scale-x-150 transform">
                 R${{ valorPremio }}!
-            </h1>
+            </h2>
             <p class="text-center text-3xl font-bold">
                 Faça seu primeiro depósito agora e iremos dobrar a quantidade depositada!
             </p>

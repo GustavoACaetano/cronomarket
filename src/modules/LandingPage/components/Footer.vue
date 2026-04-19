@@ -6,10 +6,13 @@ const { targetRef, isVisible } = useInView({ threshold: 0.2 })
 const descricao = 'Onde o futuro vira mercado!'
 
 const linksPrincipais = [
-    { label: '[HOME]', href: '#' },
-    { label: '[PRODUTOS]', href: '#' },
-    { label: '[SOBRE_NOS]', href: '#' },
-    { label: '[LEARN_HUB]', href: '#' },
+    { label: 'Home', href: '#home' },
+    { label: 'Por que?', href: '#por-que' },
+    { label: 'Sobre nós', href: '#sobre' },
+    { label: 'Como operar?', href: '#como-operar' },
+    { label: 'Depoimentos', href: '#depoimentos' },
+    { label: 'Resgate', href: '#resgate' },
+    { label: 'FAQ', href: '#faq' },
 ]
 
 const suporte = [

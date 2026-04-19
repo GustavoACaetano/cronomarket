@@ -49,7 +49,7 @@ function voltarCarrossel() {
 </script>
 
 <template>
-    <section class="bg-gray-100 w-full flex items-center justify-center">
+    <section id="como-operar" class="bg-gray-100 w-full flex items-center justify-center">
         <div 
         ref="targetRef"
         class="px-6 py-10 mx-auto max-w-7xl transition-all duration-700 ease-out"
