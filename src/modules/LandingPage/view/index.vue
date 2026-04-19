@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 // import { ChevronDown, Star } from 'lucide-vue-next'
+import Footer from '../components/Footer.vue';
 import Header from '../components/Header.vue';
 import Secao1 from '../components/Secao1.vue';
 import Secao2 from '../components/Secao2.vue';
@@ -32,4 +33,6 @@ import Secao8 from '../components/Secao8.vue';
 
         <Secao8 />
     </div>
+
+    <Footer />
 </template>
