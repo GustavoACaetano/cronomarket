@@ -5,6 +5,14 @@ Landing Page para o Cronomarket <br>
 GitHub do Projeto: [GitHub](https://github.com/GustavoACaetano/cronomarket) <br>
 Planejamento de design: [DOCS](https://docs.google.com/document/d/1lX78S7kret40uthEKfLnf-g8ym5uTDNcW_yCZU7dp2g/edit?usp=sharing) <br>
 
+## Integrantes
+- Davi Henrique Comério
+- Gabriel de Paula Brunetti
+- Gian Lucca Decoté Paneto Neves
+- Gustavo Alves Caetano
+- Heitor Lima Peixoto
+- João Pedro Zamborlini Barcellos
+
 ## Como rodar?
 Pré-requisitos:
 - NodeJS instalado.
