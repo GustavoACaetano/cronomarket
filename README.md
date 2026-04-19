@@ -1,9 +1,9 @@
 # Cronomarket - Trabalho Desenvolvimento Web
 
 ## Entrega 1
-Landing Page para o Cronomarket
-
-Link para planejamento de design: [Clique aqui](https://docs.google.com/document/d/1lX78S7kret40uthEKfLnf-g8ym5uTDNcW_yCZU7dp2g/edit?usp=sharing)
+Landing Page para o Cronomarket <br>
+GitHub do Projeto: [GitHub](https://github.com/GustavoACaetano/cronomarket) <br>
+Planejamento de design: [DOCS](https://docs.google.com/document/d/1lX78S7kret40uthEKfLnf-g8ym5uTDNcW_yCZU7dp2g/edit?usp=sharing) <br>
 
 ## Como rodar?
 Pré-requisitos:
