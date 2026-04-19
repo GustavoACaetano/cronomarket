@@ -1,13 +1,11 @@
-# Cronomarket
+# Cronomarket - Trabalho Desenvolvimento Web
 
-## Trabalho Desenvolvimento Web
-
-### Entrega 1
+## Entrega 1
 Landing Page para o Cronomarket
 
-Link para planejamento de design: (Clique aqui)[https://docs.google.com/document/d/1lX78S7kret40uthEKfLnf-g8ym5uTDNcW_yCZU7dp2g/edit?usp=sharing]
+Link para planejamento de design: [Clique aqui](https://docs.google.com/document/d/1lX78S7kret40uthEKfLnf-g8ym5uTDNcW_yCZU7dp2g/edit?usp=sharing)
 
-### Como rodar?
+## Como rodar?
 Pré-requisitos:
 - NodeJS instalado.
 
