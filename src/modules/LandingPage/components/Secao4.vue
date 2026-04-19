@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { ChevronLeft, ChevronRight } from 'lucide-vue-next'
 import { ref } from 'vue'
+import { useInView } from '@/common/composables/useInView'
+
+const { targetRef, isVisible } = useInView({ threshold: 0.3 })
 
 const imagens = [
     '/carrossel1.png',
@@ -47,7 +50,11 @@ function voltarCarrossel() {
 
 <template>
     <section class="bg-gray-100 w-full flex items-center justify-center">
-        <div class="px-6 py-10 mx-auto max-w-7xl">
+        <div 
+        ref="targetRef"
+        class="px-6 py-10 mx-auto max-w-7xl transition-all duration-700 ease-out"
+        :class="isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'"
+        >
             <h2 class="text-4xl md:text-5xl leading-tight tracking-tight mb-15 text-center">
                 Como operar no Cronomarket?
             </h2>

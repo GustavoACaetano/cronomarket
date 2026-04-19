@@ -69,7 +69,7 @@ onBeforeUnmount(() => {
         class="mx-auto flex max-w-7xl flex-col items-center justify-between px-5 transition-all duration-700 ease-out"
         :class="isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'"
     >
-        <div class="mb-10 gap-y-6 transition-all duration-700 delay-150" :class="isVisible ? 'translate-y-0 opacity-100' : 'translate-y-5 opacity-0'">
+        <div class="mb-10 gap-y-6">
             <h1 class="text-center mb-18 text-7xl font-extrabold text-transparent bg-clip-text bg-linear-to-r from-red-500 via-yellow-500 to-red-500 scale-y-125 -skew-y-6 scale-x-150 transform">
                 R${{ valorPremio }}!
             </h1>
@@ -78,7 +78,7 @@ onBeforeUnmount(() => {
             </p>
             <p class="text-center text-xs text-gray-500 mt-2">Válido até R$300,00</p>
         </div>
-        <div class="mb-24 pt-10 transition-all duration-700 delay-300" :class="isVisible ? 'translate-y-0 opacity-100' : 'translate-y-5 opacity-0'">
+        <div class="mb-24 pt-10">
             <button class="mt-4 bg-black text-white px-8 py-3 rounded-full text-base font-medium hover:bg-gray-800 transition-colors cursor-pointer inline-flex items-center gap-4">
                 <svg class="h-6 w-6 relative -top-0.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                     <path d="M20 12V22H4V12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>

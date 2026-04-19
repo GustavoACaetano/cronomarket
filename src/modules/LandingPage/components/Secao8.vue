@@ -1,6 +1,16 @@
+<script setup lang="ts">
+import { useInView } from '@/common/composables/useInView';
+
+const { targetRef, isVisible } = useInView({ threshold: 0.3 })
+</script>
+
 <template>
     <section class="bg-gray-100 w-full flex items-center justify-center">
-        <div class="flex items-center flex-col pb-24 md:w-7xl px-5 pt-10">
+        <div 
+        class="flex items-center flex-col pb-24 md:w-7xl px-5 pt-10 transition-all duration-700 ease-out" 
+        :class="isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'"
+        ref="targetRef"
+        >
             <h1 class="text-5xl mb-18 text-center">
                 Perguntas frequentes
             </h1>            
@@ -12,7 +22,7 @@
                         Como eu faço uma aposta em uma previsão?
                     </summary>
                     <div class="collapse-content text-sm">
-                        Você escolhe um evento disponível (por exemplo: “Vai chover amanhã em São Paulo?”), analisa as 
+                        Você escolhe um evento disponível (por exemplo: “Vai cair a energia do IFES Serra nesse mês?”), analisa as 
                         probabilidades e decide se quer apostar a favor (SIM) ou contra (NÃO). Depois, insere o valor que 
                         deseja apostar e confirma a transação.
                     </div>
@@ -53,7 +63,7 @@
 
             <div class="flex flex-col md:flex-row gap-y-4 items-center mt-10 gap-x-2 ">
                 <p>Deseja enviar uma pergunta personalizada?</p>
-                <textarea name="question" placeholder="Pergunta personalizada" id="question" class="textarea textarea-bordered md:textarea-md sm:textarea-lg bg-white textarea-neutral"></textarea>
+                <textarea name="question" placeholder="Pergunta personalizada" id="question" class="textarea textarea-bordered md:textarea-md sm:textarea-lg bg-white textarea-neutral resize-none"></textarea>
                 <button class="bg-black text-white px-8 py-3 ml-2 rounded-full text-base font-medium hover:bg-gray-800 transition-colors">Enviar</button>
             </div>
         </div>

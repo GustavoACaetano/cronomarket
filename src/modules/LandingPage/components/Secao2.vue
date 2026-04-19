@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { useInView } from '@/common/composables/useInView'
+
+const { targetRef, isVisible } = useInView({ threshold: 0.3 })
 
 const titulos = [
     "Mercado orientado a eventos",
@@ -12,12 +15,17 @@ const textos = [
     "Acompanhe o andamento dos eventos do mercado com atualizações rápidas e precisas.",
     "Planeje suas ações com estratégia e visão, analisando cenários e aumentando seu potencial de retorno."
 ]
-
 </script>
 
 <template>
-    <section class="bg-gray-100 w-full flex items-center justify-center">
-        <div class="py-25 flex items-center flex-col md:flex-row md:justify-between px-5 md:max-w-7xl animate-fade-in-up" style="opacity: 0; animation-delay: 0.5s">
+    <section 
+    ref="targetRef"
+    class="bg-gray-100 w-full flex items-center justify-center"
+    >
+        <div
+            class="py-25 flex items-center flex-col md:flex-row md:justify-between px-5 md:max-w-7xl transition-all duration-700 ease-out"
+            :class="isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'"
+        >
             <div class="flex flex-col text-wrap md:w-xl gap-y-6 md:text-left text-center">
                 <h1 class="text-5xl">Por que operar com o Cronomarket?</h1>
                 <p class="md:text-base text-sm text-left">
