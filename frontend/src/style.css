@@ -2,6 +2,14 @@
 @import 'tailwindcss';
 @import "@nuxt/ui";
 
+@theme static {
+  --color-accent-300: #C2897E;
+  --color-accent-500: oklch(72.772% 0.149 33.2);
+  --color-accent-600: #D16C58;
+  --color-accent-700: #7F4236;
+  --color-accent-800: #41221B;
+}
+
 :root {
   --color-text-muted: theme('colors.secondary.700');
   --color-text-main: theme('colors.black');

@@ -3,19 +3,38 @@ import type { NuxtUIOptions } from '@nuxt/ui/unplugin';
 export const uiConfig: NuxtUIOptions['ui'] = {
   colors: {
     primary: 'emerald',
-    secondary: 'slate',
+    secondary: 'indigo',
     info: 'blue',
   },
   button: {
     slots: { base: 'cursor-pointer' },
     variants: {
-      color: {
-        black: 'bg-black text-white hover:bg-gray-800 transition-colors',
-      },
       variant: {
         'header': 'text-gray-700 hover:text-black transition-colors',
-      }
+      },
     },
+    compoundVariants: [
+      {
+        color: 'black',
+        variant: 'link',
+        class: 'text-black transition-colors',
+      },
+      {
+        color: 'black',
+        variant: 'solid',
+        class: 'bg-black text-white hover:bg-gray-800 transition-colors',
+      },
+      {
+        color: 'accent',
+        variant: 'link',
+        class: 'text-accent-600 hover:text-accent-700 transition-colors',
+      },
+      {
+        color: 'accent',
+        variant: 'solid',
+        class: 'bg-accent-500 text-black hover:bg-accent-600 transition-colors',
+      }
+    ],
   },
   card: {
     slots: {
