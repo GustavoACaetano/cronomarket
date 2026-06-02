@@ -1,7 +1,24 @@
 <script setup lang="ts">
 import { useInView } from '@/common/composables/useInView';
+import { ref } from 'vue';
+import type { TabsItem } from '@nuxt/ui'
 
 const { targetRef, isVisible } = useInView({ threshold: 0.3 })
+
+const items = ref<TabsItem[]>([
+  {
+    label: 'Passo 1',
+    content: 'Acesse sua carteira e abra a aba de resgates.'
+  },
+  {
+    label: 'Passo 2',
+    content: 'Selecione o mercado finalizado com saldo disponivel.'
+  },
+  {
+    label: 'Passo 3',
+    content: 'Confirme a transferencia para sua conta em segundos.'
+  }
+])
 </script>
 
 <template>
@@ -16,34 +33,33 @@ const { targetRef, isVisible } = useInView({ threshold: 0.3 })
                     Como resgatar seus ganhos?
                 </h2>            
 
-                <div class="mx-auto w-full max-w-4xl rounded-2xl bg-gray-300 p-6 md:p-8">
+                <UCard variant="muted" class=" max-w-4xl rounded-2xl p-6 md:p-8">
                     <div class="flex flex-col gap-6 md:flex-row ">
                         <img
                             src="/resgate.png"
                             alt="Imagem ilustrativa"
                             class="h-56 w-full rounded-xl object-cover md:h-64 md:w-2/5"
                         />
-
-                        <div class="tabs tabs-border w-full md:w-3/5  [--tab-border-color:black] ">
-                            <input type="radio" name="my_tabs_2" class="tab text-black " aria-label="Passo 1" :checked="true" />
-                            <div class="tab-content p-10 h-25 ">Acesse sua carteira e abra a aba de resgates.</div>
-
-                            <input type="radio" name="my_tabs_2" class="tab text-black " aria-label="Passo 2"  />
-                            <div class="tab-content p-10 h-25">Selecione o mercado finalizado com saldo disponivel.</div>
-
-                            <input type="radio" name="my_tabs_2" class="tab text-black " aria-label="Passo 3" />
-                            <div class="tab-content p-10 h-25">Confirme a transferencia para sua conta em segundos.</div>
-                        </div>
+                        <UTabs :items="items" class="w-full md:w-3/5 items-center" color="black" variant="link">
+                            <template #content="{ item }">
+                                <div class="flex h-25 p-10">
+                                    {{ item.content }}
+                                </div>
+                            </template>
+                        </UTabs>
                     </div>
-                </div>
+                </UCard>
 
                 <div class="flex justify-center">
-                    <button
-                        class="mt-8 bg-black text-white px-8 py-3 rounded-full text-base font-medium hover:bg-gray-800 transition-colors animate-fade-in-up"
+                    <UButton 
+                        color="black" 
+                        size="xl" 
+                        class="rounded-full mt-8 animate-fade-in-up" 
+                        :ui="{ base: 'px-8 py-3'}"
                         style="opacity: 0; animation-delay: 1.4s"
                     >
                         Comece a acumular ganhos agora!
-                    </button>
+                    </UButton>
                 </div>
             </div>
         </div>
