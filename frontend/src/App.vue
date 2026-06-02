@@ -1,6 +1,9 @@
 <script setup lang="ts">
+import { pt_br } from '@nuxt/ui/locale'
 </script>
 
 <template>
-  <RouterView />
+  <UApp :locale="pt_br">
+    <RouterView />
+  </UApp>
 </template>
