@@ -1,3 +1,13 @@
+<script setup lang="ts">
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+
+const navigateTo = (path: string) => {
+    router.push(path);
+};
+</script>
+
 <template>
     <div class="w-full bg-white text-black pb-12">
         <nav
@@ -25,13 +35,11 @@
             <div
                 class="flex items-center gap-2 animate-fade-in-up md:gap-4"
                 style="opacity: 0; animation-delay: 0.3s"
-            >
-                <a href="#" class="text-sm text-gray-700 hover:text-black transition-colors">Entrar</a>
-                <button
-                    class="bg-black text-white px-5 py-2.5 rounded-full text-sm font-medium hover:bg-gray-800 transition-colors"
-                >
+            >   
+                <UButton variant="header" @click="navigateTo('/login')">Entrar</UButton> 
+                <UButton color="black" @click="navigateTo('/cadastro')" class="rounded-full" :ui="{ base: 'px-5 py-2.5'}">
                     Inscrever-se
-                </button>
+                </UButton>
             </div>
         </nav>
     </div>
