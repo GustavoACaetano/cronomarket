@@ -87,7 +87,6 @@
 body {
 	font-family: 'Inter', sans-serif;
 	background-color: var(--color-base-100);
-	color: var(--color-base-content);
 	min-height: 100vh;
 	margin: 0;
 }
