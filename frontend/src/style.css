@@ -3,9 +3,10 @@
 @import "@nuxt/ui";
 
 :root {
-  --color-text-muted: theme('colors.secondary.500');
-  --color-text: theme('colors.black');
+  --color-text-muted: theme('colors.secondary.700');
+  --color-text-main: theme('colors.black');
   --ui-text: theme('colors.black');
+  --ui-text-muted: theme('colors.secondary.700');
 }
 
 body {

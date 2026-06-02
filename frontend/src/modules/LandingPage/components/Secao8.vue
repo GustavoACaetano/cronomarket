@@ -1,7 +1,28 @@
 <script setup lang="ts">
 import { useInView } from '@/common/composables/useInView';
+import { ref } from 'vue';
+import type { AccordionItem } from '@nuxt/ui'
 
 const { targetRef, isVisible } = useInView({ threshold: 0.3 })
+
+const items = ref<AccordionItem[]>([
+    {
+        label: 'Como eu faço uma aposta em uma previsão?',
+        content: 'Você escolhe um evento disponível (por exemplo: “Vai cair a energia do IFES Serra nesse mês?”), analisa as probabilidades e decide se quer apostar a favor (SIM) ou contra (NÃO). Depois, insere o valor que deseja apostar e confirma a transação.'
+    },
+    {
+        label: 'Como funcionam as probabilidades nesse tipo de site?',
+        content: 'As probabilidades são baseadas na opinião coletiva dos usuários e variam conforme mais pessoas apostam. Se muita gente acredita que algo vai acontecer, a chance (e o preço da aposta) sobe. Funciona como um “mercado”, onde oferta e demanda influenciam os valores.'
+    },
+    {
+        label: 'Quando e como eu recebo o dinheiro se eu ganhar?',
+        content: 'Após o evento ser resolvido (ou seja, quando já se sabe o resultado real), o sistema distribui automaticamente os ganhos para quem acertou a previsão. O valor é creditado na sua conta dentro da plataforma.'
+    },
+    {
+        label: 'Posso retirar meu dinheiro a qualquer momento?',
+        content: 'Você pode retirar o saldo disponível (não comprometido em apostas ativas) seguindo as regras de saque do site, que podem incluir taxas ou prazos de processamento.'
+    }
+])
 </script>
 
 <template>
@@ -15,56 +36,14 @@ const { targetRef, isVisible } = useInView({ threshold: 0.3 })
                 Perguntas frequentes
             </h2>            
 
-            <div class="flex flex-col gap-y-5 w-full">
-                <details class="collapse collapse-arrow border border-base-300" name="my-accordion-det-1" >
-                    <summary class="collapse-title font-semibold">
-                        <span class="p-2">1.</span>
-                        Como eu faço uma aposta em uma previsão?
-                    </summary>
-                    <div class="collapse-content text-sm">
-                        Você escolhe um evento disponível (por exemplo: “Vai cair a energia do IFES Serra nesse mês?”), analisa as 
-                        probabilidades e decide se quer apostar a favor (SIM) ou contra (NÃO). Depois, insere o valor que 
-                        deseja apostar e confirma a transação.
-                    </div>
-                </details>
-                <details class="collapse collapse-arrow border border-base-300" name="my-accordion-det-1">
-                    <summary class="collapse-title font-semibold">
-                        <span class="p-2">2.</span>
-                        Como funcionam as probabilidades nesse tipo de site?
-                    </summary>
-                    <div class="collapse-content text-sm">
-                        As probabilidades são baseadas na opinião coletiva dos usuários e variam conforme mais pessoas 
-                        apostam. Se muita gente acredita que algo vai acontecer, a chance (e o preço da aposta) sobe. 
-                        Funciona como um “mercado”, onde oferta e demanda influenciam os valores.
-                    </div>
-                </details>
-                <details class="collapse collapse-arrow border border-base-300" name="my-accordion-det-1">
-                    <summary class="collapse-title font-semibold">
-                        <span class="p-2">3.</span>
-                        Quando e como eu recebo o dinheiro se eu ganhar?
-                    </summary>
-                    <div class="collapse-content text-sm">
-                        Após o evento ser resolvido (ou seja, quando já se sabe o resultado real), o sistema distribui 
-                        automaticamente os ganhos para quem acertou a previsão. O valor é creditado na sua conta dentro 
-                        da plataforma.
-                    </div>
-                </details>
-                <details class="collapse collapse-arrow border border-base-300" name="my-accordion-det-1">
-                    <summary class="collapse-title font-semibold">
-                        <span class="p-2">4.</span>
-                        Posso retirar meu dinheiro a qualquer momento?
-                    </summary>
-                    <div class="collapse-content text-sm">
-                        Você pode retirar o saldo disponível (não comprometido em apostas ativas) seguindo as regras de 
-                        saque do site, que podem incluir taxas ou prazos de processamento.
-                    </div>
-                </details>
-            </div>
-
+            <UAccordion type="multiple" :items="items" :ui="{ content: 'text-muted'}"/>
+            
             <div class="flex flex-col md:flex-row gap-y-4 items-center mt-10 gap-x-2 ">
                 <p>Deseja enviar uma pergunta personalizada?</p>
-                <textarea name="question" placeholder="Pergunta personalizada" id="question" class="textarea textarea-bordered md:textarea-md sm:textarea-lg bg-white textarea-neutral resize-none"></textarea>
-                <button class="bg-black text-white px-8 py-3 ml-2 rounded-full text-base font-medium hover:bg-gray-800 transition-colors">Enviar</button>
+                <UTextarea placeholder="Pergunta personalizada" color="neutral" :highlight="false" :ui="{ base: 'bg-white text-black'}" />
+                <UButton color="black" size="md" class="rounded-full ml-2 " :ui="{ base: 'px-8 py-3'}">
+                    Enviar
+                </UButton>
             </div>
         </div>
     </section>

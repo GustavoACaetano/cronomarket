@@ -91,11 +91,14 @@ function voltarCarrossel() {
 
             <div class="flex items-center justify-center gap-4 mt-15">
                 <p>Entendeu?</p>
-                <button
-                    class="bg-black text-white px-8 py-3 rounded-full text-base font-medium hover:bg-gray-800 transition-colors"
+                <UButton 
+                    color="black" 
+                    size="xl" 
+                    class="rounded-full" 
+                    :ui="{ base: 'px-8 py-3'}"
                 >
                     Começar agora!
-                </button>
+                </UButton>
             </div>
         </div>
     </section>
