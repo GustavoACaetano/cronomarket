@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import landingPageRoutes from '@/modules/LandingPage/router'
+import authRoutes from '@/modules/Auth/router'
 
 
 export const router = createRouter({
@@ -8,6 +9,7 @@ export const router = createRouter({
      {
       path: '/',
       children: [
+        ...authRoutes,
         ...landingPageRoutes,
       ],
     },

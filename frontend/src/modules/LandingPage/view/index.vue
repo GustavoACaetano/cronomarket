@@ -15,7 +15,7 @@ import Secao8 from '../components/Secao8.vue';
 <template>
     
     <Header />
-    <div class="min-h-screen bg-white text-black flex flex-col gap-y-26 items-center">
+    <div class="min-h-screen flex flex-col gap-y-26 items-center">
         
         <Secao1 />
 
