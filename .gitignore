@@ -43,3 +43,5 @@ __screenshots__/
 
 db.sqlite3
 __pycache__/
+
+.env
