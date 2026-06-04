@@ -5,7 +5,7 @@ name = "pypi"
 
 [packages]
 django = "*"
-django-ninja = "*"
+djangorestframework = "*"
 django-debug-toolbar = "*"
 dotenv = "*"
 

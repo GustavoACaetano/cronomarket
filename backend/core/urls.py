@@ -16,7 +16,6 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from ninja import NinjaAPI
 import debug_toolbar
 
 
@@ -24,14 +23,10 @@ admin.site.site_header = 'Cronomarket Admin'
 admin.site.index_title = 'Admin'
 admin.site.site_title = 'Cronomarket'
 
-api = NinjaAPI()
-
-@api.get("/add")
-def add(request, a: int, b: int):
-    return {"result": a + b}
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', api.urls),
+    #mudar nome
+    path('accounts/', include('accounts.urls')),
     path('__debug__/', include(debug_toolbar.urls)),
 ]
