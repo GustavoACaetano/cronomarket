@@ -1,4 +1,5 @@
 from django.shortcuts import get_object_or_404
+from drf_spectacular.utils import extend_schema
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import *
@@ -17,12 +18,19 @@ def detalhes_mercado(request, id):
     return Response(serializer.data)
 
 # eu gostaria de fazer uma API Restful aqui. Mas os nomes funcionam de um jeito burro. Too bad!
+@extend_schema(request=UsuarioSerializer, responses={201: UsuarioSerializer})
 @api_view(['POST'])
-def criar_usuario(request):
+def criar_usuario(request: UsuarioSerializer):
     serializer = UsuarioSerializer(data=request.data)
-    
+
     if not serializer.is_valid():
         return Response(serializer.errors, status=400)
+
+    if Usuario.objects.filter(user__username=serializer.validated_data['user']['username']).exists():
+        return Response({'error': 'Username já existe'}, status=400)
+    
+    if Usuario.objects.filter(user__email=serializer.validated_data['user']['email']).exists():
+        return Response({'error': 'Email já existe'}, status=400)
     
     usuario = serializer.save()
     return Response(UsuarioSerializer(usuario).data, status=201)

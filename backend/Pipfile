@@ -8,6 +8,9 @@ django = "*"
 djangorestframework = "*"
 django-debug-toolbar = "*"
 dotenv = "*"
+drf-spectacular = "*"
+psycopg-binary = "*"
+psycopg = {extras = ["binary"], version = "*"}
 
 [dev-packages]
 

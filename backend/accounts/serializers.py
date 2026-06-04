@@ -1,10 +1,13 @@
 from django.conf import settings
+from django.contrib.auth import get_user_model
 from rest_framework import serializers
 
 from .models import *
 from .models import DEFAULT_STRING_LEN
 from .models import DEFAULT_DECIMAL_DIGITS
 
+# Deixei o saldo default sendo 100. Não sei se é aqui o lugar pra isso
+DEFAULT_SALDO = 100.00
 
 class CategoriaSerializer(serializers.ModelSerializer):
     class Meta:
@@ -26,25 +29,26 @@ class MercadoSerializer(serializers.ModelSerializer):
 # tive que fazer isso para serializar o user dentro da classe usuario. obrigado brunetti.
 class DjangoUserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = settings.AUTH_USER_MODEL
-        fields = ['id', 'username', 'email']
+        model = get_user_model()
+        fields = ['username', 'email', 'password']
 
         extra_kwargs = {
             'password': {'write_only': True}
         }
-    
+
     def create(self, validated_data):
-        user = settings.AUTH_USER_MODEL.objects.create_user(**validated_data)
+        User = get_user_model()
+        user = User.objects.create_user(**validated_data)
         return user
     
 class UsuarioSerializer(serializers.ModelSerializer):
     dados_usuario = DjangoUserSerializer(source='user')
     class Meta:
         model = Usuario
-        fields = ['id', 'dados_usuario', 'saldo', 'eh_admin']
+        fields = ['id', 'dados_usuario']
 
     def create(self, validated_data):
-        user = validated_data.pop('dados_usuario')
+        user = validated_data.pop('user')
         user = DjangoUserSerializer().create(user)
-        usuario = Usuario.objects.create(user=user, saldo=validated_data['saldo'], eh_admin=validated_data['eh_admin'])
+        usuario = Usuario.objects.create(user=user, saldo=DEFAULT_SALDO)
         return usuario
