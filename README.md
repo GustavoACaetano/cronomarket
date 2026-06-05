@@ -17,6 +17,68 @@ Planejamento de design: [DOCS](https://docs.google.com/document/d/1lX78S7kret40u
 
 ## Como rodar?
 
+### Backend
+
+Pré-requisitos:
+
+- Python 3.12 instalado.
+- Pipenv instalado.
+- Docker instalado.
+
+Clone o repositório:
+
+```bash
+git clone https://github.com/GustavoACaetano/cronomarket.git
+```
+
+Entre na pasta do backend:
+
+```bash
+cd cronomarket/backend
+```
+
+Crie um arquivo `.env` na pasta `backend` com as variáveis do banco:
+
+```env
+POSTGRES_DB=cronomarket
+POSTGRES_USER=cronomarket
+POSTGRES_PASSWORD=cronomarket
+```
+
+Suba o banco PostgreSQL com Docker:
+
+```bash
+docker compose up -d
+```
+
+Instale as dependências:
+
+```bash
+pipenv install
+```
+
+Inicie o ambiente virtual:
+
+```bash
+pipenv shell
+```
+
+Execute as migrações:
+
+```bash
+python manage.py migrate
+```
+
+Inicie o servidor de desenvolvimento:
+
+```bash
+python manage.py runserver
+```
+
+Por padrão, o backend ficará disponível em `http://127.0.0.1:8000/`.
+
+### Frontend
+
 Pré-requisitos:
 
 - NodeJS instalado.
