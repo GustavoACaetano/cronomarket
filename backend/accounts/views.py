@@ -2,8 +2,15 @@ from django.shortcuts import get_object_or_404
 from drf_spectacular.utils import extend_schema
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework.viewsets import ModelViewSet
 from .models import *
 from .serializers import *
+
+
+class ComentarioViewSet(ModelViewSet):
+    queryset = Comentario.objects.all()
+    serializer_class = ComentarioSerializer
+
 
 @api_view()
 def listar_mercados(request):
@@ -62,14 +69,3 @@ def criar_categoria(request: CategoriaSerializer):
 
     categoria = serializer.save()
     return Response(CategoriaSerializer(categoria).data, status=201)
-
-@extend_schema(request=ComentarioSerializer, responses={201: ComentarioSerializer})
-@api_view(['POST'])
-def criar_comentario(request: ComentarioSerializer):
-    serializer = ComentarioSerializer(data=request.data)
-
-    if not serializer.is_valid():
-        return Response(serializer.errors, status=400)
-
-    comentario = serializer.save()
-    return Response(ComentarioSerializer(comentario).data, status=201)

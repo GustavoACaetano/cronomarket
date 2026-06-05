@@ -1,5 +1,10 @@
-from django.urls import path
+from django.urls import include, path
 from . import views
+from rest_framework.routers import DefaultRouter
+
+
+router = DefaultRouter()
+router.register(r'comentarios', views.ComentarioViewSet)
 
 urlpatterns = [
     path('mercados/', views.listar_mercados),
@@ -8,5 +13,5 @@ urlpatterns = [
     path('usuarios/criar/', views.criar_usuario),
     path('mercados/criar/', views.criar_mercado),
     path('categorias/criar/', views.criar_categoria),
-    path('comentarios/criar/', views.criar_comentario),
+    path('', include(router.urls)),
 ]
