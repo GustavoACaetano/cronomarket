@@ -45,6 +45,7 @@ class Usuario(models.Model):
 
 class Comentario(models.Model):
     mensagem = models.TextField(max_length=500)
+    criado_em = models.DateTimeField(auto_now_add=True, editable=False)
 
     usuario = models.ForeignKey('Usuario', on_delete=models.SET_NULL, null=True)
     mercado = models.ForeignKey('Mercado', on_delete=models.CASCADE)

@@ -62,3 +62,14 @@ def criar_categoria(request: CategoriaSerializer):
 
     categoria = serializer.save()
     return Response(CategoriaSerializer(categoria).data, status=201)
+
+@extend_schema(request=ComentarioSerializer, responses={201: ComentarioSerializer})
+@api_view(['POST'])
+def criar_comentario(request: ComentarioSerializer):
+    serializer = ComentarioSerializer(data=request.data)
+
+    if not serializer.is_valid():
+        return Response(serializer.errors, status=400)
+
+    comentario = serializer.save()
+    return Response(ComentarioSerializer(comentario).data, status=201)

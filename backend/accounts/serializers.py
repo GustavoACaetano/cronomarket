@@ -11,6 +11,7 @@ from .models import DEFAULT_DECIMAL_DIGITS
 # Deixei o saldo default sendo 100. Não sei se é aqui o lugar pra isso
 DEFAULT_SALDO = 100.00
 
+
 class CategoriaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Categoria
@@ -19,6 +20,7 @@ class CategoriaSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         categoria = Categoria.objects.create(**validated_data)
         return categoria
+
 
 class MercadoSerializer(serializers.ModelSerializer):
     categorias = serializers.PrimaryKeyRelatedField(many=True, queryset=Categoria.objects.all(), required=False)
@@ -57,6 +59,7 @@ class DjangoUserSerializer(serializers.ModelSerializer):
         user = User.objects.create_user(**validated_data)
         return user
     
+
 class UsuarioSerializer(serializers.ModelSerializer):
     dados_usuario = DjangoUserSerializer(source='user')
     class Meta:
@@ -68,3 +71,12 @@ class UsuarioSerializer(serializers.ModelSerializer):
         user = DjangoUserSerializer().create(user)
         usuario = Usuario.objects.create(user=user, saldo=DEFAULT_SALDO)
         return usuario
+    
+
+class ComentarioSerializer(serializers.ModelSerializer):
+    mercado = serializers.PrimaryKeyRelatedField(queryset=Mercado.objects.all())
+    usuario = serializers.PrimaryKeyRelatedField(queryset=Usuario.objects.all())
+
+    class Meta:
+        model = Comentario
+        fields = ['id', 'mensagem', 'criado_em', 'usuario', 'mercado']
