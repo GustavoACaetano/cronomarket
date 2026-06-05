@@ -1,3 +1,5 @@
+from dataclasses import fields
+
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
@@ -13,18 +15,32 @@ class CategoriaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Categoria
         fields = ['id', 'nome']
+    
+    def create(self, validated_data):
+        categoria = Categoria.objects.create(**validated_data)
+        return categoria
 
 class MercadoSerializer(serializers.ModelSerializer):
-    id = serializers.IntegerField(read_only=True)
-    titulo = serializers.CharField(max_length=DEFAULT_STRING_LEN)
-    descricao = serializers.CharField(max_length=DEFAULT_STRING_LEN)
-    data_encerramento = serializers.DateTimeField()
-    liquidez_inicial = serializers.DecimalField(max_digits=DEFAULT_DECIMAL_DIGITS, decimal_places=2)
-    ativo = serializers.BooleanField()
-    criado_em = serializers.DateTimeField(read_only=True)
-    
-    criado_por = serializers.StringRelatedField(read_only=True)
-    categorias = CategoriaSerializer(many=True, read_only=True)
+    categorias = serializers.PrimaryKeyRelatedField(many=True, queryset=Categoria.objects.all(), required=False)
+
+    class Meta:
+        model = Mercado
+        fields = ['id', 'titulo', 'descricao', 'data_encerramento', 'ativo', 'liquidez_inicial', 'valor_total_sucesso', 'valor_total_fracasso', 'regra_encerramento', 'opcao_sucesso', 'opcao_fracasso', 'link_imagem', 'categorias']
+
+        extra_kwargs = {
+            'id' : {'read_only': True},
+            'valor_total_sucesso': {'read_only': True},
+            'valor_total_fracasso': {'read_only': True},
+        }
+
+    def create(self, validated_data):
+        categorias_ids = validated_data.pop('categorias', [])
+        mercado = Mercado.objects.create(**validated_data, valor_total_sucesso=0, valor_total_fracasso=0)
+
+        if categorias_ids:
+            mercado.categorias.set(categorias_ids)
+
+        return mercado
 
 # tive que fazer isso para serializar o user dentro da classe usuario. obrigado brunetti.
 class DjangoUserSerializer(serializers.ModelSerializer):

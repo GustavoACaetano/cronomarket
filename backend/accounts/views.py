@@ -35,9 +35,30 @@ def criar_usuario(request: UsuarioSerializer):
     usuario = serializer.save()
     return Response(UsuarioSerializer(usuario).data, status=201)
     
-    
 @api_view(['GET'])
 def detalhes_usuario(request, id):
     usuario = get_object_or_404(Usuario, pk=id)
     serializer = UsuarioSerializer(usuario)
     return Response(serializer.data)
+
+@extend_schema(request=MercadoSerializer, responses={201: MercadoSerializer})
+@api_view(['POST'])
+def criar_mercado(request):
+    serializer = MercadoSerializer(data=request.data)
+
+    if not serializer.is_valid():
+        return Response(serializer.errors, status=400)
+
+    mercado = serializer.save()
+    return Response(MercadoSerializer(mercado).data, status=201)
+
+@extend_schema(request=CategoriaSerializer, responses={201: CategoriaSerializer})
+@api_view(['POST'])
+def criar_categoria(request: CategoriaSerializer):
+    serializer = CategoriaSerializer(data=request.data)
+
+    if not serializer.is_valid():
+        return Response(serializer.errors, status=400)
+
+    categoria = serializer.save()
+    return Response(CategoriaSerializer(categoria).data, status=201)
