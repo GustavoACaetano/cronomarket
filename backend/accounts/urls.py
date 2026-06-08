@@ -11,4 +11,5 @@ router.register(r'usuarios', views.UsuarioViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('csrf/', views.GetCSRFToken.as_view())
 ]

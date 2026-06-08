@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/6.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
+from rest_framework.permissions import IsAuthenticated
 
 from pathlib import Path
 from dotenv import load_dotenv
@@ -46,13 +47,25 @@ INSTALLED_APPS = [
     'rest_framework',
     'drf_spectacular',
     'debug_toolbar',
-    
+
     # my apps,
     'accounts.apps.AccountsConfig',
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+    'http://127.0.0.1:5173'
+]
+
 REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication'
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_PAGINATION_CLASS': 'core.pagination.StandardResultsSetPagination'
 }
 
 MIDDLEWARE = [
