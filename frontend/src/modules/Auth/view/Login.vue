@@ -11,6 +11,47 @@ const navigateTo = (path: string) => {
 const email = ref('');
 const show = ref(false)
 const password = ref('')
+const loading = ref(false)
+const errorMessage = ref('')
+
+const handleLogin = async () => {
+    errorMessage.value = ''
+
+    if (!email.value || !password.value) {
+        errorMessage.value = 'Preencha email e senha.'
+        return
+    }
+
+    loading.value = true
+
+    try {
+        const response = await fetch('/api/login/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            credentials: 'include',
+            body: JSON.stringify({
+                email: email.value,
+                password: password.value,
+            }),
+        })
+
+        const data = await response.json().catch(() => ({}))
+
+        if (!response.ok) {
+            errorMessage.value = data?.non_field_errors?.[0] || data?.detail || 'Email ou senha inválidos.'
+            return
+        }
+
+        localStorage.setItem('cronomarket_user', JSON.stringify(data.user))
+        router.push('/landing-page')
+    } catch {
+        errorMessage.value = 'Não foi possível conectar ao servidor.'
+    } finally {
+        loading.value = false
+    }
+}
 </script>
 
 <template>
@@ -24,7 +65,7 @@ const password = ref('')
                     <h1 class="text-4xl text-left">Login</h1>
                     <span class="font-light text-left text-gray-600">Bem vindo de volta!</span>
                 </div>
-                <UForm class="flex flex-col gap-y-4 items-center">
+                <UForm class="flex flex-col gap-y-4 items-center" @submit.prevent="handleLogin">
                     <UFormField label="Email" class="w-full" :ui="{ label: 'font-light' }">
                         <UInput 
                             placeholder="Seu email" 
@@ -65,8 +106,25 @@ const password = ref('')
                             Cadastre-se
                         </UButton>
                     </span>
+                    <UAlert
+                        v-if="errorMessage"
+                        color="error"
+                        variant="subtle"
+                        :title="errorMessage"
+                        class="w-full"
+                    />
                     <div class="flex justify-center w-full">
-                        <UButton color="primary" class="w-full" size="xl" :ui="{ base: 'flex justify-center h-13'}">Entrar</UButton>
+                        <UButton
+                            type="submit"
+                            color="primary"
+                            class="w-full"
+                            size="xl"
+                            :loading="loading"
+                            :disabled="loading || !email || !password"
+                            :ui="{ base: 'flex justify-center h-13'}"
+                        >
+                            Entrar
+                        </UButton>
                     </div>
                 </UForm>
             </div>
