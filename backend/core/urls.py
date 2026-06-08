@@ -27,8 +27,8 @@ admin.site.site_title = 'Cronomarket'
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    #mudar nome
-    path('', include('accounts.urls')),
+    # Todas as rotas da API ficam sob /api/
+    path('api/', include('accounts.urls')),
     path('__debug__/', include(debug_toolbar.urls)),
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
     path('api/schema/swagger-ui/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
