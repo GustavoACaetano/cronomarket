@@ -1,6 +1,7 @@
 from dataclasses import fields
 
 from django.conf import settings
+from django.contrib.auth import authenticate
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 
@@ -71,6 +72,34 @@ class UsuarioSerializer(serializers.ModelSerializer):
         user = DjangoUserSerializer().create(user)
         usuario = Usuario.objects.create(user=user, saldo=DEFAULT_SALDO)
         return usuario
+
+
+class LoginSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+    password = serializers.CharField(write_only=True)
+
+    def validate(self, attrs):
+        email = attrs.get('email')
+        password = attrs.get('password')
+        User = get_user_model()
+
+        try:
+            user_obj = User.objects.get(email=email)
+            username = user_obj.get_username()
+        except User.DoesNotExist:
+            username = email
+
+        user = authenticate(
+            request=self.context.get('request'),
+            username=username,
+            password=password,
+        )
+
+        if not user:
+            raise serializers.ValidationError('Email ou senha inválidos.')
+
+        attrs['user'] = user
+        return attrs
     
 
 class ComentarioSerializer(serializers.ModelSerializer):
