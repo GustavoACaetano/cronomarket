@@ -1,9 +1,11 @@
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.utils.decorators import method_decorator
 from rest_framework.views import APIView
-from rest_framework.permissions import AllowAny
+from rest_framework.authentication import SessionAuthentication
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
+
 from .models import *
 from .serializers import *
 
@@ -34,3 +36,10 @@ class MercadoViewSet(ModelViewSet):
 class UsuarioViewSet(ModelViewSet):
     queryset = Usuario.objects.all()
     serializer_class = UsuarioSerializer
+    authentication_classes = [SessionAuthentication]
+
+    def get_permissions(self):
+        permission_classes = [AllowAny] if self.action == 'create' else [IsAuthenticated]
+        return [permission() for permission in permission_classes]
+
+
