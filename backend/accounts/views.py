@@ -10,6 +10,8 @@ from rest_framework.response import Response
 
 from .models import *
 from .serializers import *
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.filters import SearchFilter, OrderingFilter
 
 class GetCSRFToken(APIView):
     authentication_classes = []
@@ -60,6 +62,10 @@ class CategoriaViewSet(ModelViewSet):
 class MercadoViewSet(ModelViewSet):
     queryset = Mercado.objects.all()
     serializer_class = MercadoSerializer
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    filterset_fields = ['categorias']
+    search_fields = ['titulo', 'descricao']
+    ordering_fields = ['data_encerramento', 'liquidez_inicial']
 
 
 class UsuarioViewSet(ModelViewSet):
