@@ -1,105 +1,61 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { useForm } from 'vee-validate';
+import { toTypedSchema } from '@vee-validate/zod';
+import * as z from 'zod';
+import { useAuth } from '../composables/useAuth';
 
 const router = useRouter();
+const { register, isRegistering, isRegisterSuccess, errorMessage } = useAuth();
 
-const navigateTo = (path: string) => {
-    router.push(path);
-};
+// Definição do esquema de validação com Zod
+const schema = toTypedSchema(
+    z.object({
+        username: z.string()
+            .min(3, 'O nome de usuário deve ter pelo menos 3 caracteres.')
+            .nonempty('Nome de usuário é obrigatório.'),
+        email: z.string()
+            .email('Insira um e-mail válido.')
+            .nonempty('E-mail é obrigatório.'),
+        password: z.string()
+            .min(6, 'A senha deve ter pelo menos 6 caracteres.')
+            .nonempty('A senha é obrigatória.'),
+        confirmPassword: z.string()
+            .nonempty('Confirme sua senha.'),
+    }).refine((data) => data.password === data.confirmPassword, {
+        message: 'As senhas não coincidem.',
+        path: ['confirmPassword'],
+    })
+);
 
-const username = ref('');
-const email = ref('');
-const password = ref('');
-const confirmPassword = ref('');
+const { handleSubmit, errors, defineField, meta } = useForm({
+    validationSchema: schema,
+});
+
+const [username] = defineField('username');
+const [email] = defineField('email');
+const [password] = defineField('password');
+const [confirmPassword] = defineField('confirmPassword');
+
 const showPassword = ref(false);
 const showConfirmPassword = ref(false);
-const submitted = ref(false);
-const loading = ref(false);
-const errorMessage = ref('');
-const successMessage = ref('');
 
-const passwordsDoNotMatch = computed(() => {
-    return confirmPassword.value.length > 0 && password.value !== confirmPassword.value;
-});
-
-const isFormInvalid = computed(() => {
-    return !username.value || !email.value || !password.value || !confirmPassword.value || passwordsDoNotMatch.value;
-});
-
-const getErrorMessage = (error: unknown): string => {
-    if (typeof error === 'string') {
-        return error;
-    }
-
-    if (Array.isArray(error)) {
-        return getErrorMessage(error[0]);
-    }
-
-    if (error && typeof error === 'object') {
-        const firstValue = Object.values(error)[0];
-        return getErrorMessage(firstValue);
-    }
-
-    return 'Não foi possível criar sua conta.';
-};
-
-const getCookie = (name: string) => {
-    const cookie = document.cookie
-        .split('; ')
-        .find((row) => row.startsWith(`${name}=`));
-
-    return cookie ? decodeURIComponent(cookie.split('=')[1]) : '';
-};
-
-const handleCadastro = async () => {
-    submitted.value = true;
-    errorMessage.value = '';
-    successMessage.value = '';
-
-    if (isFormInvalid.value) {
-        return;
-    }
-
-    loading.value = true;
-
+const handleCadastro = handleSubmit(async (values) => {
     try {
-        await fetch('/api/csrf/', {
-            credentials: 'include',
+        await register({
+            username: values.username,
+            email: values.email,
+            password: values.password,
         });
-
-        const csrfToken = getCookie('csrftoken');
-
-        const response = await fetch('/usuarios/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': csrfToken,
-            },
-            credentials: 'include',
-            body: JSON.stringify({
-                dados_usuario: {
-                    username: username.value,
-                    email: email.value,
-                    password: password.value,
-                },
-            }),
-        });
-
-        const data = await response.json().catch(() => ({}));
-
-        if (!response.ok) {
-            errorMessage.value = getErrorMessage(data);
-            return;
-        }
-
-        successMessage.value = 'Conta criada com sucesso.';
-        setTimeout(() => navigateTo('/login'), 700);
+        setTimeout(() => router.push('/login'), 700);
     } catch {
-        errorMessage.value = 'Não foi possível conectar ao servidor.';
-    } finally {
-        loading.value = false;
+        // O erro é tratado reativamente pelo useAuth
     }
+});
+
+const onSubmit = () => {
+    handleCadastro();
 };
 </script>
 
@@ -114,8 +70,8 @@ const handleCadastro = async () => {
                     <h1 class="text-4xl text-left">Cadastro</h1>
                     <span class="font-light text-left text-gray-600">Crie sua conta para começar.</span>
                 </div>
-                <UForm class="flex flex-col gap-y-4 items-center" @submit.prevent="handleCadastro">
-                    <UFormField label="Nome de usuário" class="w-full" :ui="{ label: 'font-light' }">
+                <UForm class="flex flex-col gap-y-4 items-center" @submit="onSubmit">
+                    <UFormField label="Nome de usuário" class="w-full" :ui="{ label: 'font-light' }" :error="errors.username">
                         <UInput
                             v-model="username"
                             placeholder="Seu usuário"
@@ -125,7 +81,7 @@ const handleCadastro = async () => {
                             size="xl"
                         />
                     </UFormField>
-                    <UFormField label="Email" class="w-full" :ui="{ label: 'font-light' }">
+                    <UFormField label="Email" class="w-full" :ui="{ label: 'font-light' }" :error="errors.email">
                         <UInput
                             v-model="email"
                             placeholder="Seu email"
@@ -135,7 +91,7 @@ const handleCadastro = async () => {
                             size="xl"
                         />
                     </UFormField>
-                    <UFormField label="Senha" class="w-full" :ui="{ label: 'font-light' }">
+                    <UFormField label="Senha" class="w-full" :ui="{ label: 'font-light' }" :error="errors.password">
                         <UInput
                             v-model="password"
                             placeholder="Sua senha"
@@ -159,7 +115,7 @@ const handleCadastro = async () => {
                             </template>
                         </UInput>
                     </UFormField>
-                    <UFormField label="Confirmar senha" class="w-full" :ui="{ label: 'font-light' }">
+                    <UFormField label="Confirmar senha" class="w-full" :ui="{ label: 'font-light' }" :error="errors.confirmPassword">
                         <UInput
                             v-model="confirmPassword"
                             placeholder="Confirme sua senha"
@@ -183,13 +139,7 @@ const handleCadastro = async () => {
                             </template>
                         </UInput>
                     </UFormField>
-                    <UAlert
-                        v-if="passwordsDoNotMatch || (submitted && isFormInvalid)"
-                        color="error"
-                        variant="subtle"
-                        :title="passwordsDoNotMatch ? 'As senhas não coincidem.' : 'Preencha todos os campos.'"
-                        class="w-full"
-                    />
+
                     <UAlert
                         v-if="errorMessage"
                         color="error"
@@ -198,15 +148,15 @@ const handleCadastro = async () => {
                         class="w-full"
                     />
                     <UAlert
-                        v-if="successMessage"
+                        v-if="isRegisterSuccess"
                         color="success"
                         variant="subtle"
-                        :title="successMessage"
+                        title="Conta criada com sucesso."
                         class="w-full"
                     />
                     <span class="text-sm text-center font-light">
                         Já tem conta?
-                        <UButton color="primary" variant="link" @click="navigateTo('/login')" :ui="{ base: 'px-0 py-0 font-light' }">
+                        <UButton color="primary" variant="link" @click="router.push('/login')" :ui="{ base: 'px-0 py-0 font-light' }">
                             Entrar
                         </UButton>
                     </span>
@@ -216,8 +166,8 @@ const handleCadastro = async () => {
                             color="primary"
                             class="w-full"
                             size="xl"
-                            :loading="loading"
-                            :disabled="loading || isFormInvalid"
+                            :loading="isRegistering"
+                            :disabled="isRegistering || !meta.valid"
                             :ui="{ base: 'flex justify-center h-13'}"
                         >
                             Cadastrar
