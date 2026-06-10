@@ -15,6 +15,11 @@ const routes: RouteRecordRaw[] = [
         name: 'Cadastro',
         component: () => import('@/modules/Auth/view/Cadastro.vue'),
       },
+      {
+        path: 'teste-auth',
+        name: 'TestAuth',
+        component: () => import('@/modules/Auth/view/TestAuth.vue'),
+      },
     ],
   },
 ]
