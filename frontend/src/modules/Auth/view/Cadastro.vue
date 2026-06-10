@@ -1,45 +1,12 @@
 <script setup lang="ts">
-import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { useForm } from 'vee-validate';
-import { toTypedSchema } from '@vee-validate/zod';
-import * as z from 'zod';
 import { useAuth } from '../composables/useAuth';
+import { useCadastro } from '../composables/useCadastro';
 
 const router = useRouter();
 const { register, isRegistering, isRegisterSuccess, errorMessage } = useAuth();
+const { showPassword, showConfirmPassword, meta, fields, errors, handleSubmit } = useCadastro();
 
-// Definição do esquema de validação com Zod
-const schema = toTypedSchema(
-    z.object({
-        username: z.string()
-            .min(3, 'O nome de usuário deve ter pelo menos 3 caracteres.')
-            .nonempty('Nome de usuário é obrigatório.'),
-        email: z.string()
-            .email('Insira um e-mail válido.')
-            .nonempty('E-mail é obrigatório.'),
-        password: z.string()
-            .min(6, 'A senha deve ter pelo menos 6 caracteres.')
-            .nonempty('A senha é obrigatória.'),
-        confirmPassword: z.string()
-            .nonempty('Confirme sua senha.'),
-    }).refine((data) => data.password === data.confirmPassword, {
-        message: 'As senhas não coincidem.',
-        path: ['confirmPassword'],
-    })
-);
-
-const { handleSubmit, errors, defineField, meta } = useForm({
-    validationSchema: schema,
-});
-
-const [username] = defineField('username');
-const [email] = defineField('email');
-const [password] = defineField('password');
-const [confirmPassword] = defineField('confirmPassword');
-
-const showPassword = ref(false);
-const showConfirmPassword = ref(false);
 
 const handleCadastro = handleSubmit(async (values) => {
     try {
@@ -62,7 +29,7 @@ const onSubmit = () => {
 <template>
     <div class="min-h-screen w-screen bg-white px-4 py-6 flex flex-col">
         <div class="flex justify-center">
-            <img src="../../../../public/Cronomarket.png" class="w-50">
+            <img src="/Cronomarket.png" class="w-50">
         </div>
         <div class="flex flex-1 items-center justify-center">
             <div class="flex flex-col gap-y-6 w-full max-w-md">
@@ -73,7 +40,7 @@ const onSubmit = () => {
                 <UForm class="flex flex-col gap-y-4 items-center" @submit="onSubmit">
                     <UFormField label="Nome de usuário" class="w-full" :ui="{ label: 'font-light' }" :error="errors.username">
                         <UInput
-                            v-model="username"
+                            v-model="fields.username.value.value"
                             placeholder="Seu usuário"
                             color="primary"
                             trailing-icon="i-lucide-user"
@@ -83,7 +50,7 @@ const onSubmit = () => {
                     </UFormField>
                     <UFormField label="Email" class="w-full" :ui="{ label: 'font-light' }" :error="errors.email">
                         <UInput
-                            v-model="email"
+                            v-model="fields.email.value.value"
                             placeholder="Seu email"
                             color="primary"
                             trailing-icon="i-lucide-at-sign"
@@ -93,7 +60,7 @@ const onSubmit = () => {
                     </UFormField>
                     <UFormField label="Senha" class="w-full" :ui="{ label: 'font-light' }" :error="errors.password">
                         <UInput
-                            v-model="password"
+                            v-model="fields.password.value.value"
                             placeholder="Sua senha"
                             color="primary"
                             :type="showPassword ? 'text' : 'password'"
@@ -117,7 +84,7 @@ const onSubmit = () => {
                     </UFormField>
                     <UFormField label="Confirmar senha" class="w-full" :ui="{ label: 'font-light' }" :error="errors.confirmPassword">
                         <UInput
-                            v-model="confirmPassword"
+                            v-model="fields.confirmPassword.value.value"
                             placeholder="Confirme sua senha"
                             color="primary"
                             :type="showConfirmPassword ? 'text' : 'password'"

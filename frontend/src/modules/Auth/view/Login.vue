@@ -1,33 +1,13 @@
 <script setup lang="ts">
-import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { useForm } from 'vee-validate';
-import { toTypedSchema } from '@vee-validate/zod';
-import * as z from 'zod';
 import { useAuth } from '../composables/useAuth';
+import { useLogin } from '../composables/useLogin';
+
+const toast = useToast();
 
 const router = useRouter();
 const { login, isLoggingIn, errorMessage } = useAuth();
-
-// Definição do esquema de validação com Zod
-const schema = toTypedSchema(
-    z.object({
-        email: z.string()
-            .email('Insira um e-mail válido.')
-            .nonempty('E-mail é obrigatório.'),
-        password: z.string()
-            .nonempty('A senha é obrigatória.'),
-    })
-);
-
-const { handleSubmit, errors, defineField, meta } = useForm({
-    validationSchema: schema,
-});
-
-const [email] = defineField('email');
-const [password] = defineField('password');
-
-const show = ref(false);
+const { show, fields, errors, meta, handleSubmit } = useLogin();
 
 const handleLogin = handleSubmit(async (values) => {
     try {
@@ -36,6 +16,11 @@ const handleLogin = handleSubmit(async (values) => {
             password: values.password,
         });
         localStorage.setItem('cronomarket_user', JSON.stringify(data.user));
+        toast.add({
+            title: 'Login bem-sucedido',
+            color: 'success',
+            duration: 5000,
+        })
         router.push('/landing-page');
     } catch {
         // O erro é tratado reativamente pelo useAuth
@@ -50,7 +35,7 @@ const onSubmit = () => {
 <template>
     <div class="min-h-screen w-screen bg-white px-4 py-6 flex flex-col">
         <div class="flex justify-center">
-            <img src="../../../../public/Cronomarket.png" class="w-50">
+            <img src="/Cronomarket.png" class="w-50">
         </div>
         <div class="flex flex-1 items-center justify-center">
             <div class="flex flex-col gap-y-6 w-full max-w-md">
@@ -61,7 +46,7 @@ const onSubmit = () => {
                 <UForm class="flex flex-col gap-y-4 items-center" @submit="onSubmit">
                     <UFormField label="Email" class="w-full" :ui="{ label: 'font-light' }" :error="errors.email">
                         <UInput 
-                            v-model="email" 
+                            v-model="fields.email.value.value" 
                             placeholder="Seu email" 
                             color="primary" 
                             trailing-icon="i-lucide-at-sign" 
@@ -71,7 +56,7 @@ const onSubmit = () => {
                     </UFormField>
                     <UFormField label="Senha" class="w-full" :ui="{ label: 'font-light' }" :error="errors.password">
                         <UInput
-                            v-model="password"
+                            v-model="fields.password.value.value"
                             placeholder="Sua senha"
                             color="primary"
                             :type="show ? 'text' : 'password'"
