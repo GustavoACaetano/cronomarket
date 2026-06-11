@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import landingPageRoutes from '@/modules/LandingPage/router'
 import authRoutes from '@/modules/Auth/router'
+import mercadosRoutes from '@/modules/Mercado/router'
 
 const hasStoredUser = () => {
   const storedUser = localStorage.getItem('cronomarket_user')
@@ -35,6 +36,7 @@ export const router = createRouter({
       children: [
         ...authRoutes,
         ...landingPageRoutes,
+        ...mercadosRoutes,
       ],
     },
   ],
