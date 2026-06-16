@@ -1,16 +1,17 @@
-import { type ShallowReactive, computed } from 'vue';
+import { computed } from 'vue';
 import type { FiltrosMercado } from '../api/types/index';
 import { useQuery } from '@tanstack/vue-query';
 import { mercadoService } from '../api/factories/mercadoFactory';
 
 const MERCADO_KEY = 'GET_MERCADO'
 
-export function useGetMercado(filtros: ShallowReactive<FiltrosMercado>) {
+export function useGetMercado(filtros: FiltrosMercado) {
   return useQuery({
     queryKey: computed(() => [
       MERCADO_KEY,
       filtros.search,
-      ...filtros.categoria,
+      JSON.stringify(filtros.categoria),
+      filtros.data ? filtros.data.toString() : null
     ]),
     queryFn: async () => await mercadoService.getMercados(filtros),
   })

@@ -16,6 +16,11 @@ const routes: RouteRecordRaw[] = [
         name: 'CriarMercado',
         component: () => import('@/modules/Mercado/view/CriarMercado.vue'),
       },
+      {
+        path: ':id',
+        name: 'DetalhesMercado',
+        component: () => import('@/modules/Mercado/view/DetalhesMercado.vue'),
+      },
     ],
   },
 ]

@@ -27,7 +27,7 @@ function buildPrestacaoQueryParams(filters: FiltrosMercado) {
 
     if (Array.isArray(filters.categoria)) {
         filters.categoria.forEach((categoria) => {
-            params.append('categoria', categoria.toString())
+            params.append('categorias', categoria.toString())
         })
     } 
 

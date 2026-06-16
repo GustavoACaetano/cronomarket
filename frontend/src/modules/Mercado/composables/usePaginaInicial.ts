@@ -1,5 +1,5 @@
 import { useGetCategoria } from "./useGetCategoria";
-import { ref, computed, shallowReactive } from "vue";
+import { ref, computed, reactive } from "vue";
 import { useDebounceFn } from "@vueuse/core";
 import type { FiltroSection, FiltrosMercado } from "../api/types/index";
 import { useGetMercado } from "./useGetMercado";
@@ -8,7 +8,7 @@ import { useGetMercado } from "./useGetMercado";
 export function usePaginaInicial() {
     const { data: categorias } = useGetCategoria();
     
-    const filtroSelecionado: FiltrosMercado = shallowReactive({
+    const filtroSelecionado: FiltrosMercado = reactive({
         search: '',
         categoria: [],
         data: null
@@ -20,7 +20,10 @@ export function usePaginaInicial() {
 
     const categoriaItems = computed(() => {
         if (!categorias.value) return []
-        return categorias.value.results.map((categoria) => ({
+        const list = Array.isArray(categorias.value) 
+            ? categorias.value 
+            : (categorias.value as any).results || [];
+        return list.map((categoria: any) => ({
             label: categoria.nome,
             id: categoria.id
         }))

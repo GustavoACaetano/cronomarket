@@ -64,7 +64,7 @@ class UsuarioSerializer(serializers.ModelSerializer):
     dados_usuario = DjangoUserSerializer(source='user')
     class Meta:
         model = Usuario
-        fields = ['id', 'dados_usuario']
+        fields = ['id', 'dados_usuario', 'saldo', 'eh_admin']
 
     def create(self, validated_data):
         user = validated_data.pop('user')
@@ -104,10 +104,11 @@ class LoginSerializer(serializers.Serializer):
 class ComentarioSerializer(serializers.ModelSerializer):
     mercado = serializers.PrimaryKeyRelatedField(queryset=Mercado.objects.all())
     usuario = serializers.PrimaryKeyRelatedField(queryset=Usuario.objects.all())
+    username = serializers.CharField(source='usuario.user.username', read_only=True)
 
     class Meta:
         model = Comentario
-        fields = ['id', 'mensagem', 'criado_em', 'usuario', 'mercado']
+        fields = ['id', 'mensagem', 'criado_em', 'usuario', 'username', 'mercado']
 
 
 class AcaoSerializer(serializers.ModelSerializer):
