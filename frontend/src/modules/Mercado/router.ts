@@ -11,6 +11,11 @@ const routes: RouteRecordRaw[] = [
         name: 'PaginaInicial',
         component: () => import('@/modules/Mercado/view/PaginaInicial.vue'),
       },
+      {
+        path: 'criar',
+        name: 'CriarMercado',
+        component: () => import('@/modules/Mercado/view/CriarMercado.vue'),
+      },
     ],
   },
 ]

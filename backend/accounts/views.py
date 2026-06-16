@@ -101,6 +101,20 @@ class MercadoViewSet(ModelViewSet):
     search_fields = ['titulo', 'descricao']
     ordering_fields = ['data_encerramento', 'liquidez_inicial']
 
+    def get_permissions(self):
+        if self.action in ['create', 'update', 'partial_update', 'destroy']:
+            return [IsAuthenticated()]
+        return super().get_permissions()
+
+    def check_permissions(self, request):
+        super().check_permissions(request)
+        # RN02: Apenas administradores podem cadastrar mercados de previsão
+        if self.action in ['create', 'update', 'partial_update', 'destroy']:
+            usuario = getattr(request.user, 'usuario', None)
+            if not usuario or not usuario.eh_admin:
+                self.permission_denied(request, message="Somente administradores podem criar ou gerenciar mercados.")
+
+
     @action(detail=True, methods=['post'], permission_classes=[IsAuthenticated])
     def comprar(self, request, pk=None):
         mercado = self.get_object()

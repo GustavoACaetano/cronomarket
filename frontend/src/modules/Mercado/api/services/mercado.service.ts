@@ -7,6 +7,11 @@ export class MercadoService {
         const response = await api.get('/api/mercados/', { params: buildPrestacaoQueryParams(filters) });
         return response.data
     }
+
+    public async createMercado(payload: Partial<Mercado>): Promise<Mercado> {
+        const response = await api.post('/api/mercados/', payload);
+        return response.data;
+    }
 }
 
 function buildPrestacaoQueryParams(filters: FiltrosMercado) {
