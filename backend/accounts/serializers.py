@@ -9,8 +9,7 @@ from .models import *
 from .models import DEFAULT_STRING_LEN
 from .models import DEFAULT_DECIMAL_DIGITS
 
-# Deixei o saldo default sendo 100. Não sei se é aqui o lugar pra isso
-DEFAULT_SALDO = 100.00
+DEFAULT_SALDO = 300.00
 
 
 class CategoriaSerializer(serializers.ModelSerializer):
@@ -109,3 +108,28 @@ class ComentarioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comentario
         fields = ['id', 'mensagem', 'criado_em', 'usuario', 'mercado']
+
+
+class AcaoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Acao
+        fields = ['id', 'quantidade', 'eh_sucesso', 'preco_medio', 'mercado', 'usuario']
+
+
+class OperacaoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Operacao
+        fields = ['id', 'tipo', 'quantidade', 'data_hora', 'preco_medio', 'valor_total', 'mercado', 'usuario']
+
+
+class HistoricoMercadoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = HistoricoMercado
+        fields = ['id', 'data_hora', 'percentual_sucesso', 'percentual_fracasso', 'mercado']
+
+
+class ResultadoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Resultado
+        fields = ['id', 'sucesso', 'usuario', 'mercado']
+

@@ -8,6 +8,8 @@ router.register(r'comentarios', views.ComentarioViewSet)
 router.register(r'categorias', views.CategoriaViewSet)
 router.register(r'mercados', views.MercadoViewSet)
 router.register(r'usuarios', views.UsuarioViewSet)
+router.register(r'acoes', views.AcaoViewSet)
+
 
 urlpatterns = [
     path('', include(router.urls)),
