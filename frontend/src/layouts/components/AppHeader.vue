@@ -57,6 +57,13 @@ const userMenuItems = computed(() => {
               void router.push('/mercados/criar');
           }
       } as any);
+      items.push({
+          label: 'Painel do Administrador',
+          icon: 'i-lucide-layout-dashboard',
+          onSelect: () => {
+              void router.push('/mercados/admin-dashboard');
+          }
+      } as any);
   }
 
   // Sair action
@@ -78,7 +85,7 @@ const userMenuItems = computed(() => {
 <template>
     <UHeader :ui="{ container: 'm-0 justify-between w-full max-w-full'}">
         <template #title>
-            <img src="/Cronomarket.png" class="w-50 cursor-pointer" @click="router.push('/mercados/home')">
+            <img src="/Cronomarket.png" class="w-32 md:w-50 cursor-pointer" @click="router.push('/mercados/home')">
         </template>
         
         <template #right>

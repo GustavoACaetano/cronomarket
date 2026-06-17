@@ -159,10 +159,12 @@ class MercadoViewSet(ModelViewSet):
             else:
                 cost_after = get_lmsr_cost(q_s, q_f + quantidade, b)
 
-            valor_total = cost_after - cost_before
+            valor_total_lmsr = cost_after - cost_before
+            taxa = valor_total_lmsr * 0.003
+            valor_total = valor_total_lmsr + taxa
 
             if float(usuario.saldo) < valor_total:
-                return Response({'error': 'Saldo insuficiente.'}, status=status.HTTP_400_BAD_REQUEST)
+                return Response({'error': 'Saldo insuficiente para cobrir a operação e a taxa.'}, status=status.HTTP_400_BAD_REQUEST)
 
             # Update prices dynamically post-trade
             if eh_sucesso:
@@ -177,7 +179,7 @@ class MercadoViewSet(ModelViewSet):
             usuario.saldo = float(usuario.saldo) - valor_total
             usuario.save()
 
-            # Record Operacao
+            # Record Operacao (we can store the total cost containing fee)
             operacao = Operacao.objects.create(
                 tipo=Operacao.TipoOperacao.COMPRA,
                 quantidade=quantidade,
@@ -262,7 +264,9 @@ class MercadoViewSet(ModelViewSet):
             else:
                 cost_after = get_lmsr_cost(q_s, q_f - quantidade, b)
 
-            valor_total = cost_before - cost_after  # Revenue received by user
+            valor_total_lmsr = cost_before - cost_after  # Gross revenue received by user
+            taxa = valor_total_lmsr * 0.003
+            valor_total = valor_total_lmsr - taxa
 
             # Update Market State
             if eh_sucesso:
@@ -289,12 +293,7 @@ class MercadoViewSet(ModelViewSet):
 
             # Update user position
             acao.quantidade = acao.quantidade - quantidade
-            if acao.quantidade == 0:
-                acao.delete()
-            else:
-                # Average price doesn't change on selling shares, we just reduce the count.
-                # Standard practice is keeping the purchase price average.
-                acao.save()
+            acao.save()
 
             mercado.save()
 
@@ -346,12 +345,12 @@ class MercadoViewSet(ModelViewSet):
                 usuario_ganhador.saldo = float(usuario_ganhador.saldo) + ganho
                 usuario_ganhador.save()
 
-                # Register the payout as a specialized Venda operacao or simple payout log.
-                # We can just delete their assets since they were resolved.
-                acao.delete()
+                # Set quantity to 0 to preserve position history
+                acao.quantidade = 0
+                acao.save()
 
-            # Clean up losing assets for this market
-            Acao.objects.filter(mercado=mercado).delete()
+            # Clean up losing assets for this market by setting quantity to 0
+            Acao.objects.filter(mercado=mercado).exclude(eh_sucesso=sucesso).update(quantidade=0)
 
         return Response({'message': 'Mercado encerrado com sucesso.'}, status=status.HTTP_200_OK)
 
@@ -373,6 +372,69 @@ class AcaoViewSet(ModelViewSet):
 
     def get_queryset(self):
         return self.queryset.filter(usuario=self.request.user.usuario)
+
+
+class OperacaoViewSet(ModelViewSet):
+    queryset = Operacao.objects.all()
+    serializer_class = OperacaoSerializer
+    permission_classes = [IsAuthenticated]
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['mercado', 'usuario']
+
+    def get_queryset(self):
+        return self.queryset.filter(usuario=self.request.user.usuario)
+
+
+class ResultadoViewSet(ModelViewSet):
+    queryset = Resultado.objects.all()
+    serializer_class = ResultadoSerializer
+    permission_classes = [IsAuthenticated]
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['mercado']
+
+
+class AdminDashboardView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, format=None):
+        # Verify user is an admin
+        usuario = getattr(request.user, 'usuario', None)
+        if not usuario or not usuario.eh_admin:
+            return Response({'error': 'Acesso negado. Apenas administradores.'}, status=status.HTTP_403_FORBIDDEN)
+
+        # 1. Total users
+        total_usuarios = Usuario.objects.count()
+
+        # 2. Total active / resolved markets
+        total_mercados_ativos = Mercado.objects.filter(ativo=True).count()
+        total_mercados_encerrados = Mercado.objects.filter(ativo=False).count()
+
+        # 3. Total fees collected: sum 0.3% of the transaction size.
+        # Since we modified the database transaction saving logic:
+        # COMPRA: valor_total = raw_cost + taxa -> taxa = (valor_total / 1.003) * 0.003
+        # VENDA: valor_total = raw_revenue - taxa -> taxa = (valor_total / 0.997) * 0.003
+        all_ops = Operacao.objects.all()
+        total_taxas = 0.00
+
+        for op in all_ops:
+            val = float(op.valor_total)
+            if op.tipo == 1: # COMPRA
+                total_taxas += (val / 1.003) * 0.003
+            elif op.tipo == 2: # VENDA
+                total_taxas += (val / 0.997) * 0.003
+
+        # 4. Total volume traded (sum of all operations)
+        volume_total = sum(float(op.valor_total) for op in all_ops)
+
+        return Response({
+            'total_usuarios': total_usuarios,
+            'total_mercados_ativos': total_mercados_ativos,
+            'total_mercados_encerrados': total_mercados_encerrados,
+            'lucro_total_taxas': round(total_taxas, 2),
+            'volume_total': round(volume_total, 2)
+        }, status=status.HTTP_200_OK)
+
+
 
 
 

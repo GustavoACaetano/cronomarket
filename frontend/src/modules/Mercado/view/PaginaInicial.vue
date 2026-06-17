@@ -9,8 +9,8 @@ const { filtroSection, mercados } = usePaginaInicial();
 <template>
     <div class="flex flex-col gap-y-6">
         <FiltrosMercados :filtro-section="filtroSection"/>
-        <div class="grid grid-cols-4 gap-x-3 gap-y-6">
-            <ItemMercado class="col-span-1" v-for="mercado in mercados" :mercado="mercado" />
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <ItemMercado v-for="mercado in mercados" :key="mercado.id" :mercado="mercado" />
         </div>
     </div>
 </template>

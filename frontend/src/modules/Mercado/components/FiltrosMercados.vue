@@ -14,8 +14,8 @@ const {
 </script>
 
 <template>
-    <div class="grid grid-cols-6 gap-x-6">
-        <UFormField label="Pesquisar" class="w-full col-span-2" :ui="{ label: 'font-light' }">
+    <div class="grid grid-cols-1 md:grid-cols-6 gap-y-4 md:gap-x-6">
+        <UFormField label="Pesquisar" class="w-full col-span-1 md:col-span-2" :ui="{ label: 'font-light' }">
             <UInput
                 placeholder="Escreva o nome de um mercado"
                 color="primary"
@@ -26,7 +26,7 @@ const {
                 v-model="filtroSelecionado.search"
             />
         </UFormField>
-        <UFormField label="Encerra até" class="w-full col-span-2" :ui="{ label: 'font-light' }">
+        <UFormField label="Encerra até" class="w-full col-span-1 md:col-span-2" :ui="{ label: 'font-light' }">
             <UInputDate v-model="filtroSelecionado.data" size="xl" :ui="{ base: 'w-full bg-muted' }">
                 <template #trailing>
                     <UPopover>
@@ -56,7 +56,7 @@ const {
                 </template>
             </UInputDate>
         </UFormField>
-        <UFormField label="Categoria" class="w-full col-span-2" :ui="{ label: 'font-light'}">
+        <UFormField label="Categoria" class="w-full col-span-1 md:col-span-2" :ui="{ label: 'font-light'}">
             <USelectMenu 
                 placeholder="Selecione uma categoria" 
                 size="xl" 

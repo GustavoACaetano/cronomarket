@@ -29,7 +29,7 @@ const percentFracasso = computed(() => {
 
 const formatCurrency = (val: string) => {
     const parsed = parseFloat(val);
-    return isNaN(parsed) ? 'R$ 0,00' : parsed.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    return isNaN(parsed) ? 'C$ 0,00' : 'C$ ' + parsed.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 };
 
 // Map category IDs to names using the cached categories query or a static lookup if needed.

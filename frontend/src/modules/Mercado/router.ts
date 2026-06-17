@@ -26,6 +26,11 @@ const routes: RouteRecordRaw[] = [
         name: 'Carteira',
         component: () => import('@/modules/Mercado/view/Carteira.vue'),
       },
+      {
+        path: 'admin-dashboard',
+        name: 'DashboardAdmin',
+        component: () => import('@/modules/Mercado/view/DashboardAdmin.vue'),
+      },
     ],
   },
 ]

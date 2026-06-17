@@ -199,7 +199,7 @@ const handleResolveMarket = async (sucesso: boolean) => {
 };
 
 const formatCurrency = (val: number) => {
-    return val.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    return 'C$ ' + val.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 };
 </script>
 

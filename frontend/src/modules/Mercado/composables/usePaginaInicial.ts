@@ -38,7 +38,9 @@ export function usePaginaInicial() {
 
     const mercados = computed(() => {
         if (!mercadosData.value) return []
-        return mercadosData.value.results
+        const list = [...(mercadosData.value.results || [])];
+        // Sort: active (true) first, closed (false) last
+        return list.sort((a: any, b: any) => (a.ativo === b.ativo) ? 0 : a.ativo ? -1 : 1)
     })
 
     return {

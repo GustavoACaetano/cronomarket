@@ -104,5 +104,64 @@ class CronomarketTests(APITestCase):
         self.usuario.refresh_from_db()
         self.assertAlmostEqual(float(self.usuario.saldo), balance_before_close + 10.00)
 
-        # Asset should be deleted after liquidation
-        self.assertFalse(Acao.objects.filter(usuario=self.usuario, mercado=self.mercado).exists())
+        # Asset quantity should be 0 after liquidation
+        acao = Acao.objects.get(usuario=self.usuario, mercado=self.mercado)
+        self.assertEqual(acao.quantidade, 0)
+
+    def test_fee_calculations_and_admin_dashboard(self):
+        # 1. Non-admin access to dashboard should fail
+        url_dashboard = reverse('admin-dashboard')
+        response = self.client.get(url_dashboard)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+        # 2. Perform a buy and verify fee
+        # Let's save the initial balance
+        self.usuario.refresh_from_db()
+        balance_before = float(self.usuario.saldo)
+
+        url_comprar = reverse('mercado-comprar', args=[self.mercado.id])
+        response_comprar = self.client.post(url_comprar, {'eh_sucesso': True, 'quantidade': 10}, format='json')
+        self.assertEqual(response_comprar.status_code, status.HTTP_200_OK)
+
+        self.usuario.refresh_from_db()
+        balance_after_buy = float(self.usuario.saldo)
+        buy_total_charged = balance_before - balance_after_buy
+
+        # The backend view calculates:
+        # valor_total_lmsr = cost_after - cost_before
+        # taxa = valor_total_lmsr * 0.003
+        # valor_total = valor_total_lmsr + taxa
+        # Therefore, fee = (valor_total / 1.003) * 0.003
+        expected_buy_fee = (buy_total_charged / 1.003) * 0.003
+
+        # 3. Perform a sell and verify fee
+        url_vender = reverse('mercado-vender', args=[self.mercado.id])
+        response_vender = self.client.post(url_vender, {'eh_sucesso': True, 'quantidade': 5}, format='json')
+        self.assertEqual(response_vender.status_code, status.HTTP_200_OK)
+
+        self.usuario.refresh_from_db()
+        balance_after_sell = float(self.usuario.saldo)
+        sell_total_refund = balance_after_sell - balance_after_buy
+        
+        # The backend view calculates:
+        # valor_total_lmsr = cost_before - cost_after
+        # taxa = valor_total_lmsr * 0.003
+        # valor_total = valor_total_lmsr - taxa
+        # Therefore, fee = (valor_total / 0.997) * 0.003
+        expected_sell_fee = (sell_total_refund / 0.997) * 0.003
+
+        # Make user admin
+        self.usuario.eh_admin = True
+        self.usuario.save()
+
+        # 4. Access admin dashboard
+        response_dashboard = self.client.get(url_dashboard)
+        self.assertEqual(response_dashboard.status_code, status.HTTP_200_OK)
+        data = response_dashboard.data
+        
+        expected_total_fees = round(expected_buy_fee + expected_sell_fee, 2)
+        self.assertAlmostEqual(float(data['lucro_total_taxas']), expected_total_fees, places=2)
+        self.assertEqual(data['total_usuarios'], 1)
+        self.assertEqual(data['total_mercados_ativos'], 1)
+        self.assertEqual(data['total_mercados_encerrados'], 0)
+
