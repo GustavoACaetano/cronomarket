@@ -71,12 +71,12 @@ onBeforeUnmount(() => {
     >
         <div class="mb-10 gap-y-6">
             <h2 class="text-center mb-18 text-7xl font-extrabold text-transparent bg-clip-text bg-linear-to-r from-red-500 via-yellow-500 to-red-500 scale-y-125 -skew-y-6 scale-x-150 transform">
-                R${{ valorPremio }}!
+                C${{ valorPremio }}!
             </h2>
             <p class="text-center text-3xl font-bold">
                 Faça seu primeiro depósito agora e iremos dobrar a quantidade depositada!
             </p>
-            <p class="text-center text-xs text-gray-500 mt-2">Válido até R$300,00</p>
+            <p class="text-center text-xs text-gray-500 mt-2">Válido até C$300,00</p>
         </div>
         <div class="mb-24 pt-10">
             <button class="mt-4 bg-black text-white px-8 py-3 rounded-full text-base font-medium hover:bg-gray-800 transition-colors cursor-pointer inline-flex items-center gap-4">

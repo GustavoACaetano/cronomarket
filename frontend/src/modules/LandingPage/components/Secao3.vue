@@ -47,12 +47,15 @@ const { targetRef, isVisible } = useInView({ threshold: 0.3 })
                 tornando esse processo mais dinâmico, acessível e estimulante.
             </p>
 
-            <button
-                class="mt-8 bg-black text-white px-8 py-3 rounded-full text-base font-medium hover:bg-gray-800 transition-colors animate-fade-in-up"
+            <UButton 
+                color="black" 
+                size="xl" 
+                class="rounded-full mt-8 animate-fade-in-up" 
+                :ui="{ base: 'px-8 py-3'}"
                 style="opacity: 0; animation-delay: 1.4s"
             >
                 Venha fazer parte dessa história!
-            </button>
+            </UButton>
         </div>
     </section>
 </template>
