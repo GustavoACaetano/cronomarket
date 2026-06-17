@@ -1,10 +1,11 @@
 # Cronomarket - Trabalho Desenvolvimento Web
 
-## Entrega 1
+## Entrega Final
 
-Landing Page para o Cronomarket \
 GitHub do Projeto: [GitHub](https://github.com/GustavoACaetano/cronomarket) \
-Planejamento de design: [DOCS](https://docs.google.com/document/d/1lX78S7kret40uthEKfLnf-g8ym5uTDNcW_yCZU7dp2g/edit?usp=sharing)
+Documento de gestão: [Docs](https://docs.google.com/document/d/1cFx1rhBcCupCJQpii3_imT73ekMZvBvEs4RNLiNn3Pc/edit?usp=sharing) \
+Documentação de desenvolvimento (análise + projeto): [Docs](https://docs.google.com/document/d/1Z_OyYd8bQBoOX_jjxe5woGAxEXZSwEzyrMOBV0B_z2Y/edit?usp=sharing) \
+Apresentação em slides: [Presentation](https://docs.google.com/presentation/d/1mQpT6WfIS4ljsbPTBo_Nq9sObr1AEehtI_ybN9D2PAw/edit?usp=sharing)
 
 ## Integrantes
 
