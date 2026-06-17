@@ -43,6 +43,7 @@ class LoginView(APIView):
                     'username': user.username,
                     'email': user.email,
                     'usuario_id': usuario.id if usuario else None,
+                    'eh_admin': usuario.eh_admin if usuario else False,
                 },
             },
             status=status.HTTP_200_OK,
@@ -84,8 +85,10 @@ def get_lmsr_prices(q_sucesso, q_fracasso, b):
 
 
 class ComentarioViewSet(ModelViewSet):
-    queryset = Comentario.objects.all()
+    queryset = Comentario.objects.all().order_by('-criado_em')
     serializer_class = ComentarioSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['mercado']
 
 
 class CategoriaViewSet(ModelViewSet):

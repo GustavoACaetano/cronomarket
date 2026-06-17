@@ -32,7 +32,6 @@ export const router = createRouter({
   routes: [
     {
       path: '/',
-      redirect: '/login',
       children: [
         ...authRoutes,
         ...landingPageRoutes,
@@ -43,11 +42,15 @@ export const router = createRouter({
 })
 
 router.beforeEach((to) => {
-  if (to.path === '/login' && hasStoredUser()) {
-    return '/landing-page'
+  const loggedIn = hasStoredUser()
+
+  if (to.path === '/') {
+    return loggedIn ? '/mercados/home' : '/landing-page'
   }
-  if (to.path === '/cadastro' && hasStoredUser()) {
-    return '/landing-page'
+
+  // A logged in user should never access the landing page, login, or registration pages
+  if (loggedIn && (to.path === '/landing-page' || to.path === '/login' || to.path === '/cadastro')) {
+    return '/mercados/home'
   }
 
   return true

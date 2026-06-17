@@ -44,12 +44,12 @@ const onSubmit = () => {
                     <span class="font-light text-left text-gray-600">Bem vindo de volta!</span>
                 </div>
                 <UForm class="flex flex-col gap-y-4 items-center" @submit="onSubmit">
-                    <UFormField label="Email" class="w-full" :ui="{ label: 'font-light' }" :error="errors.email">
+                    <UFormField label="Usuário ou E-mail" class="w-full" :ui="{ label: 'font-light' }" :error="errors.email">
                         <UInput 
                             v-model="fields.email.value.value" 
-                            placeholder="Seu email" 
+                            placeholder="Seu usuário ou email" 
                             color="primary" 
-                            trailing-icon="i-lucide-at-sign" 
+                            trailing-icon="i-lucide-user" 
                             class="w-full" 
                             size="xl"
                         />

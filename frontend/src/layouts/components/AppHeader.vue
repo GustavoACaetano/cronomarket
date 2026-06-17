@@ -31,8 +31,8 @@ const userAvatarBg = computed(() => {
     return getAvatarColor(currentUser.value.username);
 });
 
-const userMenuItems = computed(() => [
-  [
+const userMenuItems = computed(() => {
+  const items = [
     {
       label: `Olá, ${currentUser.value?.username || 'Usuário'}`,
       icon: 'i-lucide-user',
@@ -41,26 +41,44 @@ const userMenuItems = computed(() => [
     {
       label: 'Acessar Carteira',
       icon: 'i-lucide-wallet',
-    },
-    {
+      onSelect: () => {
+          void router.push('/mercados/carteira');
+      }
+    }
+  ];
+
+  // If the user profile contains usuario_id, check if they are admin from localStorage profile or state
+  // Typically local storage might hold it, let's inject "Criar Mercado" if eh_admin is true
+  if (currentUser.value?.eh_admin) {
+      items.push({
+          label: 'Criar Mercado',
+          icon: 'i-lucide-plus-circle',
+          onSelect: () => {
+              void router.push('/mercados/criar');
+          }
+      } as any);
+  }
+
+  // Sair action
+  items.push({
       label: 'Sair',
       icon: 'i-lucide-log-out',
       color: 'error',
       onSelect: () => {
           localStorage.removeItem('cronomarket_user');
-          // Clear cookies or credentials if applicable, then refresh
           document.cookie = 'sessionid=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
           window.location.href = '/login';
       }
-    },
-  ],
-]);
+  } as any);
+
+  return [items];
+});
 </script>
 
 <template>
     <UHeader :ui="{ container: 'm-0 justify-between w-full max-w-full'}">
         <template #title>
-            <img src="/Cronomarket.png" class="w-50">
+            <img src="/Cronomarket.png" class="w-50 cursor-pointer" @click="router.push('/mercados/home')">
         </template>
         
         <template #right>

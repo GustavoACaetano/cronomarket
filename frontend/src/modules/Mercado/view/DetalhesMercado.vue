@@ -185,9 +185,13 @@ const handleAddComment = async () => {
 };
 
 const handleResolveMarket = async (sucesso: boolean) => {
+    const optionName = sucesso ? mercado.value?.opcao_sucesso : mercado.value?.opcao_fracasso;
+    const confirmacao = window.confirm(`Tem certeza de que deseja encerrar este mercado definindo o resultado vencedor como "${optionName}"? Esta ação não pode ser desfeita.`);
+    if (!confirmacao) return;
+
     try {
         await encerrarMercado(sucesso);
-        toast.add({ title: 'Sucesso', description: `Mercado resolvido como ${sucesso ? 'SIM' : 'NÃO'} com sucesso!`, color: 'success' });
+        toast.add({ title: 'Sucesso', description: `Mercado resolvido como "${optionName}" com sucesso!`, color: 'success' });
         fetchUserData();
     } catch (e) {
         // Handled by query client

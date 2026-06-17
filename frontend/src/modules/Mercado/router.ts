@@ -21,6 +21,11 @@ const routes: RouteRecordRaw[] = [
         name: 'DetalhesMercado',
         component: () => import('@/modules/Mercado/view/DetalhesMercado.vue'),
       },
+      {
+        path: 'carteira',
+        name: 'Carteira',
+        component: () => import('@/modules/Mercado/view/Carteira.vue'),
+      },
     ],
   },
 ]

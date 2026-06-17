@@ -65,6 +65,10 @@ class UsuarioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Usuario
         fields = ['id', 'dados_usuario', 'saldo', 'eh_admin']
+        extra_kwargs = {
+            'saldo': {'read_only': True},
+            'eh_admin': {'read_only': True},
+        }
 
     def create(self, validated_data):
         user = validated_data.pop('user')
@@ -74,7 +78,7 @@ class UsuarioSerializer(serializers.ModelSerializer):
 
 
 class LoginSerializer(serializers.Serializer):
-    email = serializers.EmailField()
+    email = serializers.CharField()
     password = serializers.CharField(write_only=True)
 
     def validate(self, attrs):
@@ -83,10 +87,16 @@ class LoginSerializer(serializers.Serializer):
         User = get_user_model()
 
         try:
+            # Try to lookup user by email
             user_obj = User.objects.get(email=email)
-            username = user_obj.get_username()
+            username = user_obj.username
         except User.DoesNotExist:
-            username = email
+            try:
+                # If email lookup fails, check if the input matches username directly
+                user_obj = User.objects.get(username=email)
+                username = user_obj.username
+            except User.DoesNotExist:
+                username = email
 
         user = authenticate(
             request=self.context.get('request'),
@@ -95,7 +105,7 @@ class LoginSerializer(serializers.Serializer):
         )
 
         if not user:
-            raise serializers.ValidationError('Email ou senha inválidos.')
+            raise serializers.ValidationError('Usuário/Email ou senha inválidos.')
 
         attrs['user'] = user
         return attrs
