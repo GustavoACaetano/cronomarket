@@ -32,6 +32,8 @@ const formatCurrency = (val: string) => {
     return isNaN(parsed) ? 'C$ 0,00' : 'C$ ' + parsed.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 };
 
+const percentBadgeClass = 'inline-flex items-center justify-center w-[4.5rem] px-3 py-1 rounded text-xs font-medium text-center tabular-nums';
+
 // Map category IDs to names using the cached categories query or a static lookup if needed.
 // However, since we might want to display names, we can pass props or use the categoriesData.
 const { data: categoriasData } = useGetCategoria();
@@ -81,7 +83,7 @@ const goToMarket = () => {
                 <!-- Yes Option Line -->
                 <div class="flex items-center text-sm gap-x-3 justify-between">
                     <span class="text-gray-500 font-light">{{ mercado.opcao_sucesso }}</span>
-                    <div class="flex items-center justify-center bg-primary-50 text-primary-700 font-medium px-3 py-1 rounded text-xs min-w-12.5 text-center border border-primary-200">
+                    <div :class="[percentBadgeClass, 'bg-primary-50 text-primary-700 border border-primary-200']">
                         {{ percentSucesso }}%
                     </div>
                 </div>
@@ -89,7 +91,7 @@ const goToMarket = () => {
                 <!-- No Option Line -->
                 <div class="flex items-center text-sm gap-x-3 justify-between">
                     <span class="text-gray-500 font-light">{{ mercado.opcao_fracasso }}</span>
-                    <div class="flex items-center justify-center bg-red-50 text-red-700 font-medium px-3 py-1 rounded text-xs min-w-12.5 text-center border border-red-200">
+                    <div :class="[percentBadgeClass, 'bg-red-50 text-red-700 border border-red-200']">
                         {{ percentFracasso }}%
                     </div>
                 </div>
