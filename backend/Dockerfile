@@ -1,5 +1,5 @@
 # Production Dockerfile for Cronomarket Backend
-FROM python:3.11-slim
+FROM python:3.12-slim
 
 # Prevent writing .pyc and buffer output
 ENV PYTHONDONTWRITEBYTECODE=1

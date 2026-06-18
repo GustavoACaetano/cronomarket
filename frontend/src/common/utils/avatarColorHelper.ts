@@ -22,5 +22,5 @@ export function getAvatarColor(username: string): string {
     ];
     
     const index = Math.abs(hash) % colors.length;
-    return colors[index];
+    return colors[index] ?? '#10b981';
 }
