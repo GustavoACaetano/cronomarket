@@ -45,3 +45,9 @@ db.sqlite3
 __pycache__/
 
 .env
+
+# TLS certificates/private keys
+certs/
+*.pem
+*.key
+*.crt

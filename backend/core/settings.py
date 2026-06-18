@@ -58,6 +58,10 @@ CSRF_TRUSTED_ORIGINS = env.get(
     "http://127.0.0.1:5173,http://localhost:5173"
 ).split(",")
 
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+SESSION_COOKIE_SECURE = env.get("SESSION_COOKIE_SECURE", "False") == "True"
+CSRF_COOKIE_SECURE = env.get("CSRF_COOKIE_SECURE", "False") == "True"
+
 REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
     'DEFAULT_AUTHENTICATION_CLASSES': (

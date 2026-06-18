@@ -44,7 +44,10 @@ services:
       - backend
     ports:
       - "80:80"
-      - "443:80"
+      - "443:443"
+    volumes:
+      - ./certs/cloudflare-origin.pem:/etc/nginx/certs/cloudflare-origin.pem:ro
+      - ./certs/cloudflare-origin-key.pem:/etc/nginx/certs/cloudflare-origin-key.pem:ro
 
 volumes:
   postgres_data:
