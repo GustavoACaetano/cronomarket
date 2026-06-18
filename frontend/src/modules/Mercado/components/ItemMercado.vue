@@ -64,7 +64,7 @@ const goToMarket = () => {
                 <img 
                     :src="mercado.link_imagem" 
                     alt="Imagem do mercado" 
-                    class="w-12 h-12 object-cover rounded-lg flex-shrink-0"
+                    class="w-12 h-12 object-cover rounded-lg shrink-0"
                 />
                 <div class="flex flex-col gap-y-0.5">
                     <span class="text-xs font-light text-gray-400 uppercase tracking-wider">
@@ -80,18 +80,18 @@ const goToMarket = () => {
             <div class="flex flex-col gap-y-2 pt-1">
                 <!-- Yes Option Line -->
                 <div class="flex items-center text-sm">
-                    <div class="flex items-center gap-x-3 justify-start">
-                        <span class="font-semibold text-gray-900">{{ percentSucesso }}%</span>
-                        <div class="flex items-center justify-center bg-primary-50 text-primary-700 font-medium px-3 py-1 rounded text-xs min-w-[50px] text-center border border-primary-200">
+                    <div class="flex items-center gap-x-3 justify-between">
+                        <div class="flex items-center justify-center bg-primary-50 text-primary-700 font-medium px-3 py-1 rounded text-xs min-w-12.5 text-center border border-primary-200">
                             {{ mercado.opcao_sucesso }}
                         </div>
+                        <span class="font-semibold text-gray-900">{{ percentSucesso }}%</span>
                     </div>
                 </div>
 
                 <!-- No Option Line -->
                 <div class="flex items-center text-sm">
-                    <div class="flex items-center gap-x-3 justify-start">
-                        <div class="flex items-center justify-center bg-red-50 text-red-700 font-medium px-3 py-1 rounded text-xs min-w-[50px] text-center border border-red-200">
+                    <div class="flex items-center gap-x-3 justify-between">
+                        <div class="flex items-center justify-center bg-red-50 text-red-700 font-medium px-3 py-1 rounded text-xs min-w-12.5 text-center border border-red-200">
                             {{ mercado.opcao_fracasso }}
                         </div>
                         <span class="font-semibold text-gray-900">{{ percentFracasso }}%</span>
