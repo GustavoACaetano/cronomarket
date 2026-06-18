@@ -276,7 +276,7 @@ const formatCurrency = (val: number) => {
                             v-model="commentText" 
                             placeholder="Escreva sua opinião sobre este mercado..." 
                             size="md" 
-                            rows="3"
+                            :rows="3"
                         />
                         <div class="flex justify-end">
                             <UButton 

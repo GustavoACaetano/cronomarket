@@ -31,7 +31,7 @@ SECRET_KEY = 'django-insecure-6gm9qge06fh9+*!wd!08p&k9k$-*4onvs21_a9+34s+!$ia!ai
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = env.get("DJANGO_ALLOWED_HOSTS", "localhost,127.0.0.1").split(",")
 
 
 # Application definition
@@ -53,10 +53,10 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
 ]
 
-CSRF_TRUSTED_ORIGINS = [
-    'http://127.0.0.1:5173',
-    'http://localhost:5173'
-]
+CSRF_TRUSTED_ORIGINS = env.get(
+    "CSRF_TRUSTED_ORIGINS",
+    "http://127.0.0.1:5173,http://localhost:5173"
+).split(",")
 
 REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
@@ -116,7 +116,7 @@ DATABASES = {
         "NAME": env.get("POSTGRES_DB"),
         "USER": env.get("POSTGRES_USER"),
         "PASSWORD": env.get("POSTGRES_PASSWORD"),
-        "HOST": "127.0.0.1",
+        "HOST": env.get("POSTGRES_HOST", "127.0.0.1"),
         "PORT": "5432",
     }
 }
