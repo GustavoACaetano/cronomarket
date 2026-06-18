@@ -79,24 +79,19 @@ const goToMarket = () => {
             <!-- Prediction Options List (Kalshi-like grid style) -->
             <div class="flex flex-col gap-y-2 pt-1">
                 <!-- Yes Option Line -->
-                <div class="flex items-center text-sm">
-                    <div class="flex items-center gap-x-3 justify-between">
-                        <div class="flex items-center justify-center bg-primary-50 text-primary-700 font-medium px-3 py-1 rounded text-xs min-w-12.5 text-center border border-primary-200">
-                            {{ mercado.opcao_sucesso }}
-                        </div>
-                        <span class="font-semibold text-gray-900">{{ percentSucesso }}%</span>
+                <div class="flex items-center text-sm gap-x-3 justify-between">
+                    <div class="flex items-center justify-center bg-primary-50 text-primary-700 font-medium px-3 py-1 rounded text-xs min-w-12.5 text-center border border-primary-200">
+                        {{ mercado.opcao_sucesso }}
                     </div>
+                    <span class="font-semibold text-gray-900">{{ percentSucesso }}%</span>
                 </div>
 
                 <!-- No Option Line -->
-                <div class="flex items-center text-sm">
-                    <div class="flex items-center gap-x-3 justify-between">
-                        <div class="flex items-center justify-center bg-red-50 text-red-700 font-medium px-3 py-1 rounded text-xs min-w-12.5 text-center border border-red-200">
-                            {{ mercado.opcao_fracasso }}
-                        </div>
-                        <span class="font-semibold text-gray-900">{{ percentFracasso }}%</span>
-                        
+                <div class="flex items-center text-sm gap-x-3 justify-between">
+                    <div class="flex items-center justify-center bg-red-50 text-red-700 font-medium px-3 py-1 rounded text-xs min-w-12.5 text-center border border-red-200">
+                        {{ mercado.opcao_fracasso }}
                     </div>
+                    <span class="font-semibold text-gray-900">{{ percentFracasso }}%</span>
                 </div>
             </div>
 
